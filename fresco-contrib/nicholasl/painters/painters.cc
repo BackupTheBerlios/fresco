@@ -10,7 +10,7 @@ Fresco::Mesh cube();
 Fresco::Mesh test();
 void dumpMesh(Fresco::Mesh &mesh);
 
-// for the sake of my sanity is it LESS or LESS_OR_EQUAL ??
+// this is a "strict weak ordering" aka less than.
 class TriangleCompare : public binary_function<Fresco::Triangle&, Fresco::Triangle&, bool> {
 public:
   explicit TriangleCompare::TriangleCompare(Fresco::Vertices &ref_to_verseq)
@@ -132,6 +132,9 @@ public:
 
     // skip test 5: do they actually occlude? Who cares, flip them anyways.
 
+    // Irreflexivity: f(x, x) must be FALSE
+    //if (one.a == two.a && one.b == two.b && one.c == two.c) { return false; }
+
     return true;
   }
 private:
@@ -187,43 +190,45 @@ int main(int argc, char *argv[])
   CORBA::ORB_var orb;
   orb = CORBA::ORB_init(argc, argv);
 
-  Fresco::Mesh mesh = cube();
-  //Fresco::Mesh mesh = test();
+  //Fresco::Mesh mesh = cube();
+  Fresco::Mesh mesh = test();
 
   std::cout << "before:" << std::endl;
   dumpMesh(mesh);
   TriangleIterator first(mesh.triangles, 0);
   TriangleIterator last(mesh.triangles, mesh.triangles.length());
-  Fresco::Vertices v = mesh.nodes; // transformed verticies!
+  Fresco::Vertices v = mesh.nodes; // transform the verticies!
   TriangleCompare comp(v);
   sort(first, last, comp);
-  std::cout << "after:" << std::endl;
+  std::cout << std::endl << "after:" << std::endl;
   dumpMesh(mesh);
 
-  orb->shutdown(1);
-}
+  orb->shutdown(true);
 
-class dumpTriangle : public unary_function<Fresco::Triangle&, void> {
-public:
-  void operator()(const Fresco::Triangle &t) const {
-    std::cout << "(" << t.a << "," << t.b << "," << t.c << ")" << std::endl;
-  }
-};
-
-void dumpMesh(Fresco::Mesh &mesh)
-{
-  TriangleIterator i(mesh.triangles, 0);
-  TriangleIterator end(mesh.triangles, mesh.triangles.length()); 
-  dumpTriangle dt;
-  for_each(i, end, dt);
+  return 0;
 }
 
 Fresco::Mesh test()
 {
   Fresco::Mesh mesh;
-  mesh.nodes.length(6);
+  mesh.nodes.length(9);
 
-  //mesh.nodes[0].x = 
+  mesh.nodes[0].x = 0; mesh.nodes[0].y = 0; mesh.nodes[0].z = 0;
+  mesh.nodes[1].x = 1; mesh.nodes[1].y = 0; mesh.nodes[1].z = 0;
+  mesh.nodes[2].x = 1; mesh.nodes[2].y = 1; mesh.nodes[2].z = 0;
+
+  mesh.nodes[3].x = 0; mesh.nodes[3].y = 0; mesh.nodes[3].z = 1;
+  mesh.nodes[4].x = 1; mesh.nodes[4].y = 0; mesh.nodes[4].z = 1;
+  mesh.nodes[5].x = 1; mesh.nodes[5].y = 1; mesh.nodes[5].z = 1;
+
+  mesh.nodes[6].x = 0; mesh.nodes[6].y = 0; mesh.nodes[6].z = 2;
+  mesh.nodes[7].x = 1; mesh.nodes[7].y = 0; mesh.nodes[7].z = 2;
+  mesh.nodes[8].x = 1; mesh.nodes[8].y = 1; mesh.nodes[8].z = 2;
+
+  mesh.triangles.length(3);
+  mesh.triangles[0].a = 6; mesh.triangles[0].b = 8; mesh.triangles[0].c = 7;
+  mesh.triangles[1].a = 0; mesh.triangles[1].b = 1; mesh.triangles[1].c = 2;
+  mesh.triangles[2].a = 3; mesh.triangles[2].b = 4; mesh.triangles[2].c = 5;
 
   return mesh;
 }
@@ -280,3 +285,19 @@ Fresco::Mesh cube()
 
   return mesh;
 }
+
+class dumpTriangle : public unary_function<Fresco::Triangle&, void> {
+public:
+  void operator()(const Fresco::Triangle &t) const {
+    std::cout << "(" << t.a << "," << t.b << "," << t.c << ")" << std::endl;
+  }
+};
+
+void dumpMesh(Fresco::Mesh &mesh)
+{
+  TriangleIterator i(mesh.triangles, 0);
+  TriangleIterator end(mesh.triangles, mesh.triangles.length()); 
+  dumpTriangle dt;
+  for_each(i, end, dt);
+}
+
