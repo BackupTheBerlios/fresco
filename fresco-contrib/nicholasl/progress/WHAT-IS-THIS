@@ -1,0 +1,5 @@
+It's a progress meter prototype. Note that the real thing should be controlled using a
+BoundedValue which the progress bar should be observing. At the moment it runs an
+automated demo bouncing back and forth. This illistrates a bug in some Consoles where the
+window only animates while the mouse is moving. That is clearly the wrong behaviour so
+this doubles as a testcase for that problem.
