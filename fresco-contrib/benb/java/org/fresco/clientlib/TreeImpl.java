@@ -22,7 +22,7 @@ public class TreeImpl extends TreeItemImpl
 									Command an_onClick,//See TreeItemImpl()
 									Command an_onOpen, Command an_onClose,   // ditto
 									Graphic parentitem_container,  // where tree to append to
-								  ClientContextImpl a_cc)
+								  ClientConnection a_cc)
 	{
 		super (a_description, a_textlabel, an_onClick, an_onOpen, an_onClose);
 		Graphic pane = a_cc.layout.hbox();  // the scrolling area

@@ -192,7 +192,7 @@ public class TreeItemImpl
 	// Only for AddChild of the parent. Do not use.
 	public void setParent(TreeItemImpl the_parent,
 												Graphic parentitem_container,
-												ClientContextImpl a_cc)
+												ClientConnection a_cc)
 	{
 		if (parent != null) // SetParent called more than once
 			return;
@@ -303,7 +303,7 @@ public class TreeItemImpl
 	protected Graphic container_parentgraphic; // allows easy add/rm of container
 
   // Helper
-	protected ClientContextImpl cc;
+	protected ClientConnection cc;
 }
 
 abstract class OnEvent extends CommandPOA
@@ -315,9 +315,9 @@ abstract class OnEvent extends CommandPOA
 	protected boolean haveAppCommand;
 
   // Helper
-	protected ClientContextImpl cc;
+	protected ClientConnection cc;
 
-	OnEvent(TreeItemImpl an_item, Command an_app_command, ClientContextImpl a_cc)
+	OnEvent(TreeItemImpl an_item, Command an_app_command, ClientConnection a_cc)
 	{
 		item = an_item;
     app_command = an_app_command;
@@ -329,7 +329,7 @@ abstract class OnEvent extends CommandPOA
 
 class OnClick extends OnEvent
 {
-	OnClick(TreeItemImpl an_item, Command an_app_command, ClientContextImpl a_cc)
+	OnClick(TreeItemImpl an_item, Command an_app_command, ClientConnection a_cc)
 	{
 		super(an_item, an_app_command, a_cc);
 	}
@@ -351,7 +351,7 @@ class OnOpenClose extends OnEvent
 	OnOpenClose(TreeItemImpl an_item,
 				 Command an_app_command_for_open,
 				 Command an_app_command_for_close,
-				 ClientContextImpl a_cc)
+				 ClientConnection a_cc)
 	{
 		super(an_item, an_app_command_for_open, a_cc);
 		app_command_close = an_app_command_for_close;

@@ -166,6 +166,25 @@ public class ClientConnection extends ClientContextImpl
 		return objRef;
 	}
 
+  // Other convience functions
+
+  // Run ordinary Java main loop
+  public void run()
+  {
+		try
+		{
+      java.lang.Object sync = new java.lang.Object();
+      synchronized (sync)
+      {
+        sync.wait();
+      }
+		}
+		catch (Exception e)
+		{
+			fatalError("Application " + app_title + " terminated", e);
+		}
+  }
+
   // Debugging
   public void fatalError(String msg, Exception e)
   {
