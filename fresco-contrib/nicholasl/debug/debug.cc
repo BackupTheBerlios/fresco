@@ -1,26 +1,26 @@
-#include <Warsaw/config.hh>
-#include <Warsaw/resolve.hh>
+#include <Fresco/config.hh>
+#include <Fresco/resolve.hh>
 
-#include <Warsaw/WidgetKit.hh>
-#include <Warsaw/CommandKit.hh>
-#include <Warsaw/DesktopKit.hh>
-#include <Warsaw/ToolKit.hh>
-#include <Warsaw/LayoutKit.hh>
-#include <Warsaw/GadgetKit.hh>
-#include <Warsaw/ImageKit.hh>
-#include <Warsaw/FigureKit.hh>
-#include <Warsaw/Trigger.hh>
-#include <Warsaw/Server.hh>
-#include <Warsaw/ClientContextImpl.hh>
-#include <Warsaw/Unicode.hh>
-#include <Warsaw/MainController.hh>
-#include <Warsaw/BoundedValue.hh>
-#include <Warsaw/Image.hh>
+#include <Fresco/WidgetKit.hh>
+#include <Fresco/CommandKit.hh>
+#include <Fresco/DesktopKit.hh>
+#include <Fresco/ToolKit.hh>
+#include <Fresco/LayoutKit.hh>
+#include <Fresco/GadgetKit.hh>
+#include <Fresco/ImageKit.hh>
+#include <Fresco/FigureKit.hh>
+#include <Fresco/Trigger.hh>
+#include <Fresco/Server.hh>
+#include <Fresco/ClientContextImpl.hh>
+#include <Fresco/Unicode.hh>
+#include <Fresco/MainController.hh>
+#include <Fresco/BoundedValue.hh>
+#include <Fresco/Image.hh>
 
 #include "debug.hh"
 
 using namespace Prague;
-using namespace Warsaw;
+using namespace Fresco;
 
 int main(int argc, char **argv)
 {
@@ -40,22 +40,22 @@ int main(int argc, char **argv)
 
     client = new ClientContextImpl("Debug");
 
-    Server_var s = resolve_name<Server>(context, "IDL:Warsaw/Server:1.0");
+    Server_var s = resolve_name<Server>(context, "IDL:fresco.org/Fresco/Server:1.0");
     server = s->create_server_context(ClientContext_var(client->_this()));
     DefaultPOA::default_POA(poa);
   } catch (CORBA::COMM_FAILURE c) {
     std::cerr << "Could not connect to the berlin server (CORBA::COMM_FAILURE)." << std::endl;
   }
 
-  DesktopKit_var desktop = resolve_kit<DesktopKit>(server, "IDL:Warsaw/DesktopKit:1.0");
-  WidgetKit_var widget = resolve_kit<WidgetKit>(server, "IDL:Warsaw/WidgetKit:1.0");
-  ToolKit_var tool = resolve_kit<ToolKit>(server, "IDL:Warsaw/ToolKit:1.0");
-  LayoutKit_var layout = resolve_kit<LayoutKit>(server, "IDL:Warsaw/LayoutKit:1.0");
-  GadgetKit_var gadget = resolve_kit<GadgetKit>(server, "IDL:Warsaw/GadgetKit:1.0");
-  CommandKit_var command = resolve_kit<CommandKit>(server, "IDL:Warsaw/CommandKit:1.0");
-  ImageKit_var image = resolve_kit<ImageKit>(server, "IDL:Warsaw/ImageKit:1.0");
-  FigureKit_var figure = resolve_kit<FigureKit>(server, "IDL:Warsaw/FigureKit:1.0");
-  TextKit_var text = resolve_kit<TextKit>(server, "IDL:Warsaw/TextKit:1.0");
+  DesktopKit_var desktop = resolve_kit<DesktopKit>(server, "IDL:fresco.org/Fresco/DesktopKit:1.0");
+  WidgetKit_var widget = resolve_kit<WidgetKit>(server, "IDL:fresco.org/Fresco/WidgetKit:1.0");
+  ToolKit_var tool = resolve_kit<ToolKit>(server, "IDL:fresco.org/Fresco/ToolKit:1.0");
+  LayoutKit_var layout = resolve_kit<LayoutKit>(server, "IDL:fresco.org/Fresco/LayoutKit:1.0");
+  GadgetKit_var gadget = resolve_kit<GadgetKit>(server, "IDL:fresco.org/Fresco/GadgetKit:1.0");
+  CommandKit_var command = resolve_kit<CommandKit>(server, "IDL:fresco.org/Fresco/CommandKit:1.0");
+  ImageKit_var image = resolve_kit<ImageKit>(server, "IDL:fresco.org/Fresco/ImageKit:1.0");
+  FigureKit_var figure = resolve_kit<FigureKit>(server, "IDL:fresco.org/Fresco/FigureKit:1.0");
+  TextKit_var text = resolve_kit<TextKit>(server, "IDL:fresco.org/Fresco/TextKit:1.0");
 
   Raster_var raster = image->create("fresco.png");
   Image_var pixmap = figure->pixmap(raster);

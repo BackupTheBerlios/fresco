@@ -1,4 +1,4 @@
-/*$Id: DebugConsole.hh,v 1.1 2002/05/16 13:54:47 nicholasl Exp $
+/*$Id: DebugConsole.hh,v 1.2 2002/06/08 20:26:16 nicholasl Exp $
  *
  * This source file is a part of the Berlin Project.
  * Copyright (C) 2002 Nick Lewycky <nicholas@mxc.ca>
@@ -22,23 +22,23 @@
 #ifndef _DebugConsole_hh
 #define _DebugConsole_hh
 
-#include <Warsaw/config.hh>
-#include <Warsaw/resolve.hh>
+#include <Fresco/config.hh>
+#include <Fresco/resolve.hh>
 
-#include <Warsaw/TextKit.hh>
-#include <Warsaw/WidgetKit.hh>
-#include <Warsaw/CommandKit.hh>
-#include <Warsaw/DesktopKit.hh>
-#include <Warsaw/ToolKit.hh>
-#include <Warsaw/LayoutKit.hh>
-#include <Warsaw/Trigger.hh>
-#include <Warsaw/Server.hh>
-#include <Warsaw/ClientContextImpl.hh>
-#include <Warsaw/Unicode.hh>
-#include <Warsaw/MainController.hh>
-#include <Warsaw/Graphic.hh>
+#include <Fresco/TextKit.hh>
+#include <Fresco/WidgetKit.hh>
+#include <Fresco/CommandKit.hh>
+#include <Fresco/DesktopKit.hh>
+#include <Fresco/ToolKit.hh>
+#include <Fresco/LayoutKit.hh>
+#include <Fresco/Trigger.hh>
+#include <Fresco/Server.hh>
+#include <Fresco/ClientContextImpl.hh>
+#include <Fresco/Unicode.hh>
+#include <Fresco/MainController.hh>
+#include <Fresco/Graphic.hh>
 
-class ExitCommand : public virtual POA_Warsaw::Command,
+class ExitCommand : public virtual POA_Fresco::Command,
 		    public virtual PortableServer::RefCountServantBase
 {
 public:
@@ -49,24 +49,24 @@ public:
 class DebugConsole : public virtual PortableServer::RefCountServantBase
 {
 public:
-  DebugConsole(ClientContextImpl *client, Warsaw::ServerContext_var server);
+  DebugConsole(ClientContextImpl *client, Fresco::ServerContext_var server);
   ~DebugConsole() {}
   void start_event(const char *id, const char *name, const char *extended_name);
   void end_event(const char *id);
   bool is_enabled(const char *id, const char *name);
-  Warsaw::Trigger_var close_button();
+  Fresco::Trigger_var close_button();
   void d(CORBA::Any);
 private:
   std::string buf;
-  Warsaw::Graphic_var body_text;
+  Fresco::Graphic_var body_text;
   inline void append_text(const char *c);
-  Warsaw::TextKit_var _text;
-  Warsaw::ToolKit_var _tool;
-  Warsaw::WidgetKit_var _widget;
-  Warsaw::LayoutKit_var _layout;
-  Warsaw::DesktopKit_var _desktop;
-  Warsaw::ClientContext_var _client;
-  Warsaw::ServerContext_var _server;
+  Fresco::TextKit_var _text;
+  Fresco::ToolKit_var _tool;
+  Fresco::WidgetKit_var _widget;
+  Fresco::LayoutKit_var _layout;
+  Fresco::DesktopKit_var _desktop;
+  Fresco::ClientContext_var _client;
+  Fresco::ServerContext_var _server;
 };
 
 #endif

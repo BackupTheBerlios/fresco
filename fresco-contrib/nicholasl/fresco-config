@@ -1,4 +1,5 @@
 CPP=c++
-FRESCO=../../../Berlin/
-LIBFRESCO="-lBerlin -lWarsaw -lBabylon -lPrague"
-LIBORB="-lomnithread -ltcpwrapGK -lomniORB3 -lomniDynamic3"
+FRESCO=../../../Fresco/
+CPPFLAGS=`$FRESCO/bin/Fresco-config --cppflags`
+CXXFLAGS=`$FRESCO/bin/Fresco-config --cxxflags`
+LIBFLAGS=`$FRESCO/bin/Fresco-config --libs`

@@ -1,4 +1,4 @@
-/*$Id: DebugConsole.cc,v 1.1 2002/05/16 13:54:47 nicholasl Exp $
+/*$Id: DebugConsole.cc,v 1.2 2002/06/08 20:26:16 nicholasl Exp $
  *
  * This source file is a part of the Berlin Project.
  * Copyright (C) 2002 Nick Lewycky <nicholas@mxc.ca>
@@ -23,16 +23,16 @@
 #include "DebugConsole.hh"
 
 using namespace Prague;
-using namespace Warsaw;
+using namespace Fresco;
 
-DebugConsole::DebugConsole(ClientContextImpl *client, Warsaw::ServerContext_var server) {
+DebugConsole::DebugConsole(ClientContextImpl *client, Fresco::ServerContext_var server) {
   _client = ClientContext_var(client->_this());
   _server = server;
-  _text = resolve_kit<TextKit>(server, "IDL:Warsaw/TextKit:1.0");
-  _tool = resolve_kit<ToolKit>(server, "IDL:Warsaw/ToolKit:1.0");
-  _widget = resolve_kit<WidgetKit>(server, "IDL:Warsaw/WidgetKit:1.0");
-  _layout = resolve_kit<LayoutKit>(server, "IDL:Warsaw/LayoutKit:1.0");
-  _desktop = resolve_kit<DesktopKit>(server, "IDL:Warsaw/DesktopKit:1.0");
+  _text = resolve_kit<TextKit>(server, "IDL:fresco.org/Fresco/TextKit:1.0");
+  _tool = resolve_kit<ToolKit>(server, "IDL:fresco.org/Fresco/ToolKit:1.0");
+  _widget = resolve_kit<WidgetKit>(server, "IDL:fresco.org/Fresco/WidgetKit:1.0");
+  _layout = resolve_kit<LayoutKit>(server, "IDL:fresco.org/Fresco/LayoutKit:1.0");
+  _desktop = resolve_kit<DesktopKit>(server, "IDL:fresco.org/Fresco/DesktopKit:1.0");
 
   Trigger_var close_trigger = close_button();
 
@@ -55,7 +55,7 @@ inline void DebugConsole::append_text(const char *c) {
   body_text->append_graphic(_text->chunk(Unicode::to_CORBA(Babylon::String(c))));
 }
 
-Warsaw::Trigger_var DebugConsole::close_button() {
+Fresco::Trigger_var DebugConsole::close_button() {
   Graphic_var glyph = _text->chunk(Unicode::to_CORBA(Babylon::String("Close.")));
   ExitCommand *command = new ExitCommand();
   Trigger_var button = _widget->button(Graphic_var(_tool->rgb(glyph, 0., 0., 0.)), Command_var(command->_this()));

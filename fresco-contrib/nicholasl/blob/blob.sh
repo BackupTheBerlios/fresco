@@ -1,3 +1,3 @@
 #! /bin/sh
 source ../fresco-config
-$CPP -g -I$FRESCO/include blob.cc -o blob -L$FRESCO/lib $LIBFRESCO $LIBORB
+$CPP $CPPFLAGS $CXXFLAGS blob.cc -o blob $LIBFLAGS -lBerlin

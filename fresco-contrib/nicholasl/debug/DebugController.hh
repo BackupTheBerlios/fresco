@@ -1,4 +1,4 @@
-/*$Id: DebugController.hh,v 1.1 2002/05/16 13:54:47 nicholasl Exp $
+/*$Id: DebugController.hh,v 1.2 2002/06/08 20:26:16 nicholasl Exp $
  *
  * This source file is a part of the Berlin Project.
  * Copyright (C) 2002 Nick Lewycky <nicholas@mxc.ca>
@@ -22,10 +22,10 @@
 #ifndef _DebugController_hh
 #define _DebugController_hh
 
-#include <Warsaw/config.hh>
-#include <Warsaw/Input.hh>
-#include <Warsaw/PickTraversal.hh>
-#include <Warsaw/DrawTraversal.hh>
+#include <Fresco/config.hh>
+#include <Fresco/Input.hh>
+#include <Fresco/PickTraversal.hh>
+#include <Fresco/DrawTraversal.hh>
 #include <Berlin/ControllerImpl.hh>
 #include <Berlin/RefCountVar.hh>
 
@@ -36,56 +36,56 @@
 #define IS_ENABLED() _console->is_enabled(_name, __FUNCTION__)
 #define DUMP(x) do { CORBA::Any a; a <<= x; _console->d(a); } while(0)
 
-class DebugController : public virtual POA_Warsaw::Controller,
+class DebugController : public virtual POA_Fresco::Controller,
                         public ControllerImpl
 {
 public:
   DebugController::DebugController(char *name, DebugConsole *console) : ControllerImpl(false) { _name = name; _console = console; }
   ~DebugController() {}
   // Disable debugging output during a traversal. This will have to work some day.
-  void draw(Warsaw::DrawTraversal_ptr t) {
+  void draw(Fresco::DrawTraversal_ptr t) {
     //ENTER();
     //DUMP(t);
     //if (IS_ENABLED()) ControllerImpl::draw(t);
     //EXIT();
     ControllerImpl::draw(t);
   }
-  void pick(Warsaw::PickTraversal_ptr t) {
+  void pick(Fresco::PickTraversal_ptr t) {
     //ENTER();
     //DUMP(t);
     //if (IS_ENABLED()) ControllerImpl::pick(t);
     //EXIT();
     ControllerImpl::pick(t);
   }
-  void press(Warsaw::PickTraversal_ptr t, const Warsaw::Input::Event &e) {
+  void press(Fresco::PickTraversal_ptr t, const Fresco::Input::Event &e) {
     ENTER();
     DUMP(t);
     DUMP(&e);
     if (IS_ENABLED()) ControllerImpl::press(t, e);
     EXIT();
   }
-  void drag(Warsaw::PickTraversal_ptr t, const Warsaw::Input::Event &e) {
+  void drag(Fresco::PickTraversal_ptr t, const Fresco::Input::Event &e) {
     ENTER();
     DUMP(t);
     DUMP(&e);
     if (IS_ENABLED()) ControllerImpl::drag(t, e);
     EXIT();
   }
-  void release(Warsaw::PickTraversal_ptr t, const Warsaw::Input::Event &e) {
+  void release(Fresco::PickTraversal_ptr t, const Fresco::Input::Event &e) {
     ENTER();
     DUMP(t);
     DUMP(&e);
     if (IS_ENABLED()) ControllerImpl::release(t, e);
     EXIT();
   }
-  CORBA::Boolean handle_positional(Warsaw::PickTraversal_ptr t, const Warsaw::Input::Event &e) {
+  CORBA::Boolean handle_positional(Fresco::PickTraversal_ptr t, const Fresco::Input::Event &e) {
     ENTER();
     DUMP(t);
     DUMP(&e);
     if (IS_ENABLED()) ControllerImpl::handle_positional(t, e);
     EXIT();
   }
-  CORBA::Boolean handle_non_positional(const Warsaw::Input::Event &e) {
+  CORBA::Boolean handle_non_positional(const Fresco::Input::Event &e) {
     ENTER();
     DUMP(&e);
     if (IS_ENABLED()) ControllerImpl::handle_non_positional(e);

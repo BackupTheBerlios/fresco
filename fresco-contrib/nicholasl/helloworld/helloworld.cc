@@ -1,24 +1,24 @@
-#include <Warsaw/config.hh>
-#include <Warsaw/resolve.hh>
+#include <Fresco/config.hh>
+#include <Fresco/resolve.hh>
 
-#include <Warsaw/TextKit.hh>
-#include <Warsaw/WidgetKit.hh>
-#include <Warsaw/CommandKit.hh>
-#include <Warsaw/DesktopKit.hh>
-#include <Warsaw/ToolKit.hh>
-#include <Warsaw/LayoutKit.hh>
-#include <Warsaw/CommandKit.hh>
-#include <Warsaw/Trigger.hh>
-#include <Warsaw/Server.hh>
-#include <Warsaw/ClientContextImpl.hh>
-#include <Warsaw/Unicode.hh>
-#include <Warsaw/MainController.hh>
-#include <Warsaw/BoundedValue.hh>
+#include <Fresco/TextKit.hh>
+#include <Fresco/WidgetKit.hh>
+#include <Fresco/CommandKit.hh>
+#include <Fresco/DesktopKit.hh>
+#include <Fresco/ToolKit.hh>
+#include <Fresco/LayoutKit.hh>
+#include <Fresco/CommandKit.hh>
+#include <Fresco/Trigger.hh>
+#include <Fresco/Server.hh>
+#include <Fresco/ClientContextImpl.hh>
+#include <Fresco/Unicode.hh>
+#include <Fresco/MainController.hh>
+#include <Fresco/BoundedValue.hh>
 
 using namespace Prague;
-using namespace Warsaw;
+using namespace Fresco;
 
-class ExitCommand : public virtual POA_Warsaw::Command,
+class ExitCommand : public virtual POA_Fresco::Command,
 		    public virtual PortableServer::RefCountServantBase
 {
  public:
@@ -49,7 +49,7 @@ int main(int argc, char **argv)
     client = new ClientContextImpl("Hello World!");
     assert(client);
 
-    Server_var s = resolve_name<Server>(context, "IDL:Warsaw/Server:1.0");
+    Server_var s = resolve_name<Server>(context, "IDL:fresco.org/Fresco/Server:1.0");
     assert(s);
     server = s->create_server_context(ClientContext_var(client->_this()));
     assert(server);
@@ -57,17 +57,17 @@ int main(int argc, char **argv)
     std::cerr << "Could not connect to the berlin server (CORBA::COMM_FAILURE)." << std::endl;
   }
 
-  DesktopKit_var desktop = resolve_kit<DesktopKit>(server, "IDL:Warsaw/DesktopKit:1.0");
+  DesktopKit_var desktop = resolve_kit<DesktopKit>(server, "IDL:fresco.org/Fresco/DesktopKit:1.0");
   assert(desktop);
-  TextKit_var text = resolve_kit<TextKit>(server, "IDL:Warsaw/TextKit:1.0");
+  TextKit_var text = resolve_kit<TextKit>(server, "IDL:fresco.org/Fresco/TextKit:1.0");
   assert(text);
-  WidgetKit_var widget = resolve_kit<WidgetKit>(server, "IDL:Warsaw/WidgetKit:1.0");
+  WidgetKit_var widget = resolve_kit<WidgetKit>(server, "IDL:fresco.org/Fresco/WidgetKit:1.0");
   assert(widget);
-  ToolKit_var tool = resolve_kit<ToolKit>(server, "IDL:Warsaw/ToolKit:1.0");
+  ToolKit_var tool = resolve_kit<ToolKit>(server, "IDL:fresco.org/Fresco/ToolKit:1.0");
   assert(tool);
-  LayoutKit_var layout = resolve_kit<LayoutKit>(server, "IDL:Warsaw/LayoutKit:1.0");
+  LayoutKit_var layout = resolve_kit<LayoutKit>(server, "IDL:fresco.org/Fresco/LayoutKit:1.0");
   assert(layout);
-  CommandKit_var command = resolve_kit<CommandKit>(server, "IDL:Warsaw/CommandKit:1.0");
+  CommandKit_var command = resolve_kit<CommandKit>(server, "IDL:fresco.org/Fresco/CommandKit:1.0");
   assert(command);
   Graphic_var glyph = text->chunk(Unicode::to_CORBA(Babylon::String("Hello world!")));
   assert(glyph);
