@@ -1,6 +1,8 @@
 #include <Fresco/Command.hh>
 #include "GameContext.hh"
 
+#include <unistd.h>
+
 GameContext::GameContext(GameDisplayer *display)
   : _gd(display), field(0), map(0)
 {
@@ -48,6 +50,8 @@ void GameContext::expose(int x, int y)
     int coord_y = coord-(coord_x*_width);
     expose2(coord_x, coord_y, &need_expose);
   }
+  usleep(100);
+  _gd->force_update(); // XXX
 }
 
 void GameContext::expose2(int x, int y, vector<int> *need_expose) {

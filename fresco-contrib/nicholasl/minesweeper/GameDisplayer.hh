@@ -19,8 +19,8 @@ class GameDisplayer {
 public:
   GameDisplayer::GameDisplayer(Fresco::ServerContext_var _s);
   void expose(int x, int y, int type);
-  //void expose_all();
   void new_field(int w, int h, Fresco::Command_ptr cmd);
+  void force_update(); // works around Fresco timing bug
   Fresco::Graphic_var graphic();
 private:
   Layout::Grid_var _grid;
