@@ -133,7 +133,14 @@ public:
     // skip test 5: do they actually occlude? Who cares, flip them anyways.
 
     // Irreflexivity: f(x, x) must be FALSE
-    //if (one.a == two.a && one.b == two.b && one.c == two.c) { return false; }
+    Fresco::Coord one_coef, two_coef;
+    one_coef = 1./(one_A + one_B + one_C + one_D);
+    two_coef = 1./(two_A + two_B + two_C + two_D);
+    if (one_A*one_coef == two_A*two_coef && one_B*one_coef == two_B*two_coef
+	&& one_C*one_coef == two_C*two_coef) {
+      //std::cout << "irreflexivity case caught!" << std::endl;
+      return false;
+    }
 
     return true;
   }
@@ -184,16 +191,39 @@ private:
   Fresco::TriangleSeq *seq;
 };
 
+/* complex irreflexivity test */
+bool cirr()
+{
+  Fresco::Mesh mesh;
+  mesh.nodes.length(3);
+
+  mesh.nodes[0].x = 0; mesh.nodes[0].y = 0; mesh.nodes[0].z = 0;
+  mesh.nodes[1].x = 1; mesh.nodes[1].y = 0; mesh.nodes[1].z = 0;
+  mesh.nodes[2].x = 1; mesh.nodes[2].y = 1; mesh.nodes[2].z = 0;
+
+  mesh.triangles.length(2);
+  mesh.triangles[0].a = 0; mesh.triangles[0].b = 1; mesh.triangles[0].c = 2;
+  mesh.triangles[1].a = 0; mesh.triangles[1].b = 2; mesh.triangles[1].c = 1;
+
+  TriangleCompare comp(mesh.nodes);
+
+  return (comp(mesh.triangles[0], mesh.triangles[1]) == false);
+}
+
 int main(int argc, char *argv[])
 {
   // must initalize ORB before using CORBA::sequence!
   CORBA::ORB_var orb;
   orb = CORBA::ORB_init(argc, argv);
 
+  if (!cirr()) {
+    std::cout << "complex irreflexivity test failed." << std::endl;
+  }
+
   //Fresco::Mesh mesh = cube();
   Fresco::Mesh mesh = test();
 
-  std::cout << "before:" << std::endl;
+  std::cout << "before sorting:" << std::endl;
   dumpMesh(mesh);
   TriangleIterator first(mesh.triangles, 0);
   TriangleIterator last(mesh.triangles, mesh.triangles.length());
