@@ -20,10 +20,9 @@
 # see below)
 #
 # Paths
-IDLDIR=/usr/src/berlin/idl/
-IDLJAVA=/usr/local/jacorb/bin/idl
-CLASSPATH_BASE=/usr/share/kaffe/Klasses.jar
-CLASSPATH_ORB=/usr/local/jacorb/lib/jacorb.jar
+IDLDIR=/usr/src/berlin/cvs-source/idl
+IDLJAVA=/usr/package/java/jdk_2_1_4_0/bin/idlj
+#CLASSPATH_BASE=/usr/share/kaffe/Klasses.jar
 #CLASSPATH_J2EE = /usr/local/j2sdkee1.3/lib/j2ee.jar
 #
 #(do not add anything here
@@ -32,16 +31,16 @@ CLASSPATH_ORB=/usr/local/jacorb/lib/jacorb.jar
 #For readability (you usually execute these commands manually), I use
 #variables only for pathnames. Parameter names change anyway, if you use
 #other compilers / runtime environments.
-PACKAGES="-i2jpackage Warsaw:org.fresco.Warsaw -i2jpackage Figure:org.fresco.Figure -i2jpackage GGI:org.fresco.GGI -i2jpackage Layout:org.fresco.Layout -i2jpackage Primitive:org.fresco.Primitive -i2jpackage Unidraw:org.fresco.Unidraw -i2jpackage Widget:org.fresco.Widget"
+PACKAGES="-pkgPrefix Warsaw org.fresco -pkgPrefix Figure org.fresco -pkgPrefix GGI org.fresco -pkgPrefix Layout org.fresco -pkgPrefix Primitive org.fresco -pkgPrefix Unidraw org.fresco -pkgPrefix Widget org.fresco"
 
 # Warsaw
-#find $IDLDIR/Warsaw -name "*.idl" | xargs -n 1 $IDLJAVA -noskel -sloppy_forward -I$IDLDIR $PACKAGES
-#$IDLJAVA -sloppy_forward -I$IDLDIR $PACKAGES $IDLDIR/Warsaw/ClientContext.idl $IDLDIR/Warsaw/Command.idl
+#$IDLJAVA -fclient -emitAll -I$IDLDIR $PACKAGES $IDLDIR/Warsaw/meta-all.idl
+#$IDLJAVA -fclient -fserver -emitAll -I$IDLDIR $PACKAGES $IDLDIR/Warsaw/meta-callback.idl
 #(We need skeletons only for the latter interfaces)
 
 #jikes -classpath $CLASSPATH_BASE:$CLASSPATH_ORB:. org/bucksch/fresco/demo/test/demo.java
 #jikes -classpath $(CLASSPATH_BASE):$(CLASSPATH_ORB):$(CLASSPATH_J2EE):. org/bucksch/fresco/demo/html/viewer.java
 
 # Run
-kaffe -addclasspath $CLASSPATH_ORB:. org.bucksch.fresco.demo.test.DemoApp
+#kaffe -addclasspath $CLASSPATH_ORB:. org.bucksch.fresco.demo.test.DemoApp
 #kaffe -addclasspath $(CLASSPATH_ORB):$(CLASSPATH_J2EE):. org.bucksch.fresco.demo.html.Viewer http://yourserver/test/xhtml.xml

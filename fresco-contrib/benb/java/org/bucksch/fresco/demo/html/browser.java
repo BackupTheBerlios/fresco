@@ -13,22 +13,22 @@ import org.fresco.clientlib.*;
 
 class BrowserApp
 {
+  static String homepage = "http://www.bucksch.org";
   public static void main(String[] args)
   {
     try {
       System.out.println("Started");
-      ClientContextImpl cc = new ClientContextImpl(args);
+      ClientConnection cc = new ClientConnection(args, "HTML Browser");
       System.out.println("Created clientContext");
 
-      String uri = args.length > 0 ? args[0] : "http://www.bucksch.org";
+      String uri = args.length > 0 ? args[0] : homepage;
 
       new BrowserWindow(cc).LoadPage(uri);
 
-      cc.run() // loop
+      cc.run(); // loop
 
     } catch (Exception e) {
-      System.err.println(
-            "HTML Viewer error: " + e);
+      System.err.println("App error: " + e);
       e.printStackTrace(System.out);
     }
   }
@@ -41,13 +41,13 @@ class Browser
 
 class BrowserWindow
 {
-  protected ClientContextImpl cc;
+  protected ClientConnection cc;
   protected Document doc;
   protected Graphic canvas_container = null;  /* this is where we will hook
                                                  up the page. */
   protected TextBuffer urlfield;
 
-  BrowserWindow(ClientContextImpl a_cc)
+  BrowserWindow(ClientConnection a_cc)
   {
     cc = a_cc;
   }
@@ -107,9 +107,9 @@ class BrowserWindow
     canvas_container = cc.layout.hbox();  // member var
     mainwin.append_graphic(createURLbar());
     mainwin.append_graphic(canvas_container);
-    cc.desktop.shell(cc.tool.group(mainwin));
+    cc.mainWindowSimple(mainwin);
   }
-  
+
   // Helper functions. They do not modify any class vars
   protected Graphic createURLbar()
   {
@@ -166,7 +166,7 @@ class GoCommand extends CommandPOA
 /*
 
 // Provides common functions
-class C extends ClientContextImpl
+class C extends ClientConnection
 {
   public C()
   {

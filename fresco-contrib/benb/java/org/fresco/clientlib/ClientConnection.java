@@ -34,6 +34,8 @@ public class ClientConnection extends ClientContextImpl
   // Internal
   protected boolean verbose = true;
 
+
+
   public ClientConnection(String[] commandline_args,
                           String an_app_title)
   {
@@ -166,7 +168,24 @@ public class ClientConnection extends ClientContextImpl
     return objRef;
   }
 
+
+
   // Other convience functions
+
+  // Create a top-level application window on the Berlin desktop
+  public void mainWindow(MainController group)
+  {
+    desktop.shell(group, _this());
+  }
+
+  /* Create a top-level application window on the Berlin desktop
+     It does not allow to modify the event management etc., but
+     takes directly a Graphic to display
+  */
+  public void mainWindowSimple(Graphic content)
+  {
+    mainWindow(tool.group(content));
+  }
 
   // Run ordinary Java main loop
   public void run()
@@ -185,7 +204,10 @@ public class ClientConnection extends ClientContextImpl
     }
   }
 
+
+
   // Debugging
+
   public void fatalError(String msg, Exception e)
   {
     System.err.println("ERROR: " + msg + ": " + e);

@@ -18,12 +18,12 @@ import org.fresco.clientlib.*;
 // root of rendering class hierarchy
 abstract class Element
 {
-  protected ClientContextImpl cc;
+  protected ClientConnection cc;
   protected Node node;
   protected BrowserWindow window = null;
 
   /* virtual functions */
-  public Element(Node a_node, BrowserWindow bw, ClientContextImpl a_cc)
+  public Element(Node a_node, BrowserWindow bw, ClientConnection a_cc)
   {
     cc = a_cc;
     node = a_node;
@@ -66,7 +66,7 @@ abstract class Element
    "Flow" is the word the HTML spec uses for that. */
 class MixedElement extends Element
 {
-  public MixedElement(Node a_node, BrowserWindow bw, ClientContextImpl a_cc)
+  public MixedElement(Node a_node, BrowserWindow bw, ClientConnection a_cc)
   {
     super(a_node, bw, a_cc);
   }
@@ -80,7 +80,7 @@ class MixedElement extends Element
 /* Creates a Graphic, whose childs can only be blocks (e.g. <ol>). */
 class BlocksElement extends Element
 {
-  public BlocksElement(Node a_node, BrowserWindow bw, ClientContextImpl a_cc)
+  public BlocksElement(Node a_node, BrowserWindow bw, ClientConnection a_cc)
   {
     super(a_node, bw, a_cc);
   }
@@ -94,7 +94,7 @@ class BlocksElement extends Element
 /* Creates a Graphic, whose childs can only be inlines (e.g. <em>, #text). */
 class InlinesElement extends Element
 {
-  public InlinesElement(Node a_node, BrowserWindow bw, ClientContextImpl a_cc)
+  public InlinesElement(Node a_node, BrowserWindow bw, ClientConnection a_cc)
   {
     super(a_node, bw, a_cc);
   }
@@ -108,7 +108,7 @@ class InlinesElement extends Element
 }
 class VboxElement extends Element
 {
-  public VboxElement(Node a_node, BrowserWindow bw, ClientContextImpl a_cc)
+  public VboxElement(Node a_node, BrowserWindow bw, ClientConnection a_cc)
   {
     super(a_node, bw, a_cc);
   }
@@ -121,7 +121,7 @@ class VboxElement extends Element
 }
 class HboxElement extends Element
 {
-  public HboxElement(Node a_node, BrowserWindow bw, ClientContextImpl a_cc)
+  public HboxElement(Node a_node, BrowserWindow bw, ClientConnection a_cc)
   {
     super(a_node, bw, a_cc);
   }
@@ -135,7 +135,7 @@ class HboxElement extends Element
 /* Cannot contain further childs */
 class LeafElement extends Element
 {
-  public LeafElement(Node a_node, BrowserWindow bw, ClientContextImpl a_cc)
+  public LeafElement(Node a_node, BrowserWindow bw, ClientConnection a_cc)
   {
     super(a_node, bw, a_cc);
   }
@@ -152,7 +152,7 @@ class LeafElement extends Element
 class NullElement extends MixedElement
 {
   protected boolean ignore = false;
-  public NullElement(Node a_node, BrowserWindow bw, ClientContextImpl a_cc)
+  public NullElement(Node a_node, BrowserWindow bw, ClientConnection a_cc)
   {
     super(a_node, bw, a_cc);
     String value = node.getNodeValue();
@@ -193,7 +193,7 @@ class NullElement extends MixedElement
 // <ul>, <ol>, etc. and <li>
 class List extends VboxElement
 {
-  public List(Node a_node, BrowserWindow bw, ClientContextImpl a_cc)
+  public List(Node a_node, BrowserWindow bw, ClientConnection a_cc)
   {
     super(a_node, bw, a_cc);
   }
@@ -245,7 +245,7 @@ class List extends VboxElement
 // <table>, <tr>, <td> etc.
 class Table extends VboxElement
 {
-  public Table(Node a_node, BrowserWindow bw, ClientContextImpl a_cc)
+  public Table(Node a_node, BrowserWindow bw, ClientConnection a_cc)
   {
     super(a_node, bw, a_cc);
   }
@@ -288,10 +288,11 @@ class Table extends VboxElement
     }
 
     // Create Grid
-    Layout.GridPackage.Index size = new Layout.GridPackage.Index();
+    org.fresco.Layout.GridPackage.Index size =
+                                    new org.fresco.Layout.GridPackage.Index();
     size.row = noOfRows;
     size.col = noOfCells;
-    Layout.Grid grid = cc.layout.fixed_grid(size);
+    org.fresco.Layout.Grid grid = cc.layout.fixed_grid(size);
 
     int cur_row = 0;  /* This is != i, because we might skip some nodes,
                          e.g. empty #text nodes. At the end, cur_row should
@@ -307,7 +308,8 @@ class Table extends VboxElement
         {
           Node item2 = nodes2.item(j);
           String nodename = item2.getNodeName().toLowerCase();
-          Layout.GridPackage.Index pos = new Layout.GridPackage.Index();
+          org.fresco.Layout.GridPackage.Index pos =
+                                    new org.fresco.Layout.GridPackage.Index();
           pos.row = cur_row;
           pos.col = cur_col;
           if (nodename == "td")
@@ -330,7 +332,8 @@ class Table extends VboxElement
       }
       else if (!skipUnexpected)
       {
-        Layout.GridPackage.Index pos = new Layout.GridPackage.Index();
+        org.fresco.Layout.GridPackage.Index pos =
+                                    new org.fresco.Layout.GridPackage.Index();
         pos.row = cur_row;
         pos.col = 0;
         grid.replace(new NullElement(item, window, cc).GetGraphic(), pos);
@@ -364,7 +367,7 @@ class Table extends VboxElement
 class HeadingElement extends InlinesElement
 {
   protected int order;
-  public HeadingElement(Node a_node, BrowserWindow bw, ClientContextImpl a_cc,
+  public HeadingElement(Node a_node, BrowserWindow bw, ClientConnection a_cc,
                         int an_order /* 1=h1, 2=h2, ... */)
   {
     super(a_node, bw, a_cc);
@@ -381,7 +384,7 @@ class HeadingElement extends InlinesElement
 class AnchorElement extends InlinesElement
 {
   public AnchorElement(Node a_node, BrowserWindow bw,
-                       ClientContextImpl a_cc)
+                       ClientConnection a_cc)
   {
     super(a_node, bw, a_cc);
   }
@@ -425,7 +428,7 @@ class TextElement extends LeafElement
 {
   public TextElement(Node a_node,
                      BrowserWindow bw, // should not be needed
-                     ClientContextImpl a_cc)
+                     ClientConnection a_cc)
   {
     super(a_node, bw, a_cc);
   }
@@ -479,7 +482,7 @@ class TextElement extends LeafElement
    The processing of some other childs is done here, for simplicity. */
 public class Renderer extends Element
 {
-  public Renderer(Node a_node, BrowserWindow bw, ClientContextImpl a_cc)
+  public Renderer(Node a_node, BrowserWindow bw, ClientConnection a_cc)
   {
     super(a_node, bw, a_cc);
   }

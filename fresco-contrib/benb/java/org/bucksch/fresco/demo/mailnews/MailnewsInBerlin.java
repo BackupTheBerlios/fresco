@@ -18,7 +18,7 @@ class MailnewsInBerlin {
   public static void main(String[] args) {
     try {
       System.out.println("Started");
-      ClientContextImpl cc = new ClientContextImpl(args);
+      ClientConnection cc = new ClientConnection(args, "MailnewsInBerlin");
       System.out.println("Created clientContext");
       org.omg.CORBA.Object objRef = cc.resolve("Mailnews4corba");
       System.out.println("Got Mailnews app object from naming service");
@@ -63,18 +63,12 @@ class MailnewsInBerlin {
       Graphic mainwindow = cc.layout.hbox();
       mainwindow.append_graphic(treecontainer);
       mainwindow.append_graphic(detailscontainer);
-      //cc.desktop.shell(cc.tool.group(c.background(mainwindow)));
-      cc.desktop.shell(cc.tool.group(c.background(cc.layout.vfixed(mainwindow, 3000.))));
+      cc.desktop.shell(cc.tool.group(c.background(cc.layout.vfixed(mainwindow, 3000.))), cc._this());
 
-      // wait for invocations
-      java.lang.Object sync = new java.lang.Object();
-      synchronized (sync) {
-        sync.wait();
-      }
+      cc.run();
 
     } catch (Exception e) {
-      System.err.println(
-            "MailnewsInBerlin error: " + e);
+      System.err.println("MailnewsInBerlin error: " + e);
       e.printStackTrace(System.out);
     }
   }
@@ -83,10 +77,10 @@ class MailnewsInBerlin {
 // Provides common functions
 class C
 {
-  public ClientContextImpl cc;
+  public ClientConnection cc;
   protected Graphic detailsWindow;
 
-  public C(ClientContextImpl a_cc, Graphic a_detailsWindow)
+  public C(ClientConnection a_cc, Graphic a_detailsWindow)
   {
     cc = a_cc;
     detailsWindow = a_detailsWindow;

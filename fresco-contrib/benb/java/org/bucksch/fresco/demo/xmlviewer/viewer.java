@@ -20,7 +20,7 @@ class Viewer
   {
     try {
       System.out.println("Started");
-      ClientContextImpl cc = new ClientContextImpl(args);
+      ClientConnection cc = new ClientConnection(args, "XML viewer");
       System.out.println("Created clientContext");
 
       String uri = args.length > 0 ? args[0] : "http://www.bucksch.org";
@@ -38,15 +38,10 @@ class Viewer
       Tree tree = new Tree(doc, cc);
       System.out.println(" Done.");
 
-      // loop
-      java.lang.Object sync = new java.lang.Object();
-      synchronized (sync) {
-        sync.wait();
-      }
+      cc.run();
 
     } catch (Exception e) {
-      System.err.println(
-            "HTML Viewer error: " + e);
+      System.err.println("App error: " + e);
       e.printStackTrace(System.out);
     }
   }
@@ -55,7 +50,7 @@ class Viewer
 class Tree
 {
   protected CDetails c;
-  Tree(Document doc, ClientContextImpl cc)
+  Tree(Document doc, ClientConnection cc)
   {
     // Create Fresco dialog (yeah!)
     Graphic detailscontainer = cc.layout.vbox();
@@ -70,7 +65,7 @@ class Tree
     Graphic mainwindow = cc.layout.hbox();
     mainwindow.append_graphic(treecontainer);
     mainwindow.append_graphic(detailscontainer);
-    cc.desktop.shell(cc.tool.group(c.background(mainwindow)));
+    cc.desktop.shell(cc.tool.group(c.background(mainwindow)), cc._this());
   }
   public void ShowNode(Node node, TreeItemImpl treeitem_parent)
   {
@@ -94,10 +89,10 @@ class Tree
 // Provides common functions
 class CDetails
 {
-  public ClientContextImpl cc;
+  public ClientConnection cc;
   protected Graphic detailsWindow;
 
-  public CDetails(ClientContextImpl a_cc, Graphic a_detailsWindow)
+  public CDetails(ClientConnection a_cc, Graphic a_detailsWindow)
   {
     cc = a_cc;
     detailsWindow = a_detailsWindow;
@@ -110,7 +105,8 @@ class CDetails
   }
   public Graphic background(Graphic foreground)
   {
-    Warsaw.ToolKitPackage.FrameSpec fs = new Warsaw.ToolKitPackage.FrameSpec();
+    org.fresco.Warsaw.ToolKitPackage.FrameSpec fs =
+                             new org.fresco.Warsaw.ToolKitPackage.FrameSpec();
     Color col = new Color();
     col.red = 255; col.green = 255; col.blue = 255; col.alpha = 0;
     fs.foreground(col);

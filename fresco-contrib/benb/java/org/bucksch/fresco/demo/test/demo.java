@@ -1,5 +1,5 @@
 /*
-  A test program putting up a little window on the Berlin server
+  A test program putting up a dummy tree view on the Berlin server
 
   Copyright 2001 Ben Bucksch
   BSD license
@@ -38,13 +38,12 @@ class DemoApp
       Graphic mainwindow = cc.layout.hbox();
       mainwindow.append_graphic(treecontainer);
       mainwindow.append_graphic(detailscontainer);
-      cc.desktop.shell(cc.tool.group(
-           background(cc, cc.layout.vfixed(mainwindow, 3000.))), cc._this());
+      cc.desktop.shell(cc.tool.group(background(cc, cc.layout.vfixed(mainwindow, 3000.))), cc._this());
 
-      cc.run()  // loop
+      cc.run();  // loop
 
     } catch (Exception e) {
-      System.err.println("HTML Viewer error: " + e);
+      System.err.println("App error: " + e);
       e.printStackTrace(System.out);
     }
   }

@@ -1,7 +1,7 @@
 /*
   A test program putting up a little window on the Berlin server
 
-  Copyright 2001 Ben Bucksch
+  Copyright 2002 Ben Bucksch
   BSD license
  */
 package org.bucksch.fresco.demo.test;
@@ -19,7 +19,7 @@ class HelloWorld
       cc.desktop.shell(cc.tool.group(label), cc._this());
       cc.run();  // executes ordinary Java main loop
     } catch (Exception e) {
-      System.err.println("HTML Viewer error: " + e);
+      System.err.println("App error: " + e);
       e.printStackTrace(System.out);
     }
   }
