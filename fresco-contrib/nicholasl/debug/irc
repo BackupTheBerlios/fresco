@@ -1,0 +1,46 @@
+<nicholasl> crash @ PositionalFocus.cc:312 .
+<nicholasl> is_identical is throwing an exception.
+<nicholasl> INV_OBJREF when accessing my client-side Controller object.
+<stefan> nicholasl: oh, that shouldn't happen.
+<nicholasl> stefan: I don't yet understand what's going on.
+<nicholasl> stefan: any guess as to whether the bug is in my code or Fresco?
+<stefan> nicholasl: well, you compare two CORBA objects. That's impossible in
+          general.
+<stefan> nicholasl: but in special cases, when you know the poa the object was
+          activated with, you can do it
+* nicholasl light dawns.
+<stefan> nicholasl: you basically take your own poa, and ask it whether it
+          knows the object reference, i.e. you try a reverse lookup.
+<nicholasl> stefan: this code is supposed to "skip the unchanged controllers"
+            so I suppose I can dike it out, at a performance hit. At least
+            until we have a more correct way of doing it than asking our POA.
+<stefan> nicholasl: three things can happen: the poa doesn't know about the
+          other reference, meaning both objects can't be identical.
+<stefan> nicholasl: b) the poa knows the reference, but the returned servant
+          is not identical to 'this', meaning both are activated with the same
+          poa, but are still separate servants/objects.
+<stefan> nicholasl: c) it's really the same object.
+<stefan> nicholasl: I don't consider asking the poa to be incorrect by any
+          measure.
+<nicholasl> stefan: if the POA doesn't know about the object, then we know for
+            certain that it's different. Should we just catch the INV_OBJREF
+            exception then?
+<stefan> nicholasl: look into the IdentifiableImpl.cc file to see what
+          exceptions we should expect.
+<stefan> nicholasl: INV_OBJREF is not there
+<stefan> nicholasl: of course you can't compare with an invalid object
+          reference. Though I don't know what 'invalid' means in this context.
+          May be 'nil' ?
+<nicholasl> ObjectNotActive, WrongAdapter and OBJECT_NOT_EXIST . Right, so why
+            isn't it just returning a WrongAdapter exception... hrm.
+<stefan> nicholasl: no idea. Are you using a C++ client and omniORB ?
+<nicholasl> stefan: yep.
+<nicholasl> stefan: the backtrace seems to suggest that the exception came
+            across GIOP from the client.
+<nicholasl> stefan: yes, it is the client-side that throws the exception
+            first. ControllerImpl -> is_identical -> reference_to_servant ->
+            invoked_nil_psuedo_ref . (client-side).
+<nicholasl> My clientside DebugController is actually derived from
+            Berlin/ControllerImpl.hh . I don't suppose you'll fault me on
+            that.
+<stefan> nicholasl: so how come you pass a nil reference there ?

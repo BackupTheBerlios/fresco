@@ -1,0 +1,47 @@
+In file included from DebugController.hh:32,
+                 from debug.hh:25,
+                 from debug.cc:20:
+DebugConsole.hh:59: syntax error before `;'
+debug.cc:71: confused by earlier errors, bailing out
+In file included from DebugConsole.cc:23:
+DebugConsole.hh:59: syntax error before `;'
+DebugConsole.cc: In method `DebugConsole::DebugConsole(ClientContextImpl *, _CORBA_ObjRef_Var<Warsaw::_objref_ServerContext,Warsaw::ServerContext_Helper>)':
+DebugConsole.cc:28: `_text' undeclared (first use this function)
+DebugConsole.cc:28: (Each undeclared identifier is reported only once
+DebugConsole.cc:28: for each function it appears in.)
+DebugConsole.cc:28: `TextKit' undeclared (first use this function)
+DebugConsole.cc:28: template argument 1 is invalid
+DebugConsole.cc:28: template argument 1 is invalid
+DebugConsole.cc:28: no matching function for call to `resolve_kit (Warsaw::ServerContext_var &, const char[23])'
+DebugConsole.cc:36: `tool' undeclared (first use this function)
+DebugConsole.cc:36: `x' undeclared (first use this function)
+DebugConsole.cc: In method `class Warsaw::Graphic_var DebugConsole::close_button()':
+DebugConsole.cc:45: `exit_cmd' undeclared (first use this function)
+DebugConsole.cc: In method `void DebugConsole::d(CORBA::Any)':
+DebugConsole.cc:56: no match for `ostream & << CORBA::Any &'
+/usr/lib/gcc-lib/i386-linux/2.95.4/../../../../include/g++-3/iostream.h:77: candidates are: class ostream & ostream::operator <<(char)
+/usr/lib/gcc-lib/i386-linux/2.95.4/../../../../include/g++-3/iostream.h:78:                 class ostream & ostream::operator <<(unsigned char)
+/usr/lib/gcc-lib/i386-linux/2.95.4/../../../../include/g++-3/iostream.h:79:                 class ostream & ostream::operator <<(signed char)
+/usr/lib/gcc-lib/i386-linux/2.95.4/../../../../include/g++-3/iostream.h:80:                 class ostream & ostream::operator <<(const char *)
+/usr/lib/gcc-lib/i386-linux/2.95.4/../../../../include/g++-3/iostream.h:82:                 class ostream & ostream::operator <<(const unsigned char *)
+/usr/lib/gcc-lib/i386-linux/2.95.4/../../../../include/g++-3/iostream.h:84:                 class ostream & ostream::operator <<(const signed char *)
+/usr/lib/gcc-lib/i386-linux/2.95.4/../../../../include/g++-3/iostream.h:85:                 class ostream & ostream::operator <<(const void *)
+/usr/lib/gcc-lib/i386-linux/2.95.4/../../../../include/g++-3/iostream.h:86:                 class ostream & ostream::operator <<(int)
+/usr/lib/gcc-lib/i386-linux/2.95.4/../../../../include/g++-3/iostream.h:87:                 class ostream & ostream::operator <<(unsigned int)
+/usr/lib/gcc-lib/i386-linux/2.95.4/../../../../include/g++-3/iostream.h:88:                 class ostream & ostream::operator <<(long int)
+/usr/lib/gcc-lib/i386-linux/2.95.4/../../../../include/g++-3/iostream.h:89:                 class ostream & ostream::operator <<(long unsigned int)
+/usr/lib/gcc-lib/i386-linux/2.95.4/../../../../include/g++-3/iostream.h:91:                 class ostream & ostream::operator <<(long long int)
+/usr/lib/gcc-lib/i386-linux/2.95.4/../../../../include/g++-3/iostream.h:92:                 class ostream & ostream::operator <<(long long unsigned int)
+/usr/lib/gcc-lib/i386-linux/2.95.4/../../../../include/g++-3/iostream.h:94:                 class ostream & ostream::operator <<(short int)
+/usr/lib/gcc-lib/i386-linux/2.95.4/../../../../include/g++-3/iostream.h:95:                 class ostream & ostream::operator <<(short unsigned int)
+/usr/lib/gcc-lib/i386-linux/2.95.4/../../../../include/g++-3/iostream.h:97:                 class ostream & ostream::operator <<(bool)
+/usr/lib/gcc-lib/i386-linux/2.95.4/../../../../include/g++-3/iostream.h:99:                 class ostream & ostream::operator <<(double)
+/usr/lib/gcc-lib/i386-linux/2.95.4/../../../../include/g++-3/iostream.h:100:                 class ostream & ostream::operator <<(float)
+/usr/lib/gcc-lib/i386-linux/2.95.4/../../../../include/g++-3/iostream.h:102:                 class ostream & ostream::operator <<(long double)
+/usr/lib/gcc-lib/i386-linux/2.95.4/../../../../include/g++-3/iostream.h:106:                 class ostream & ostream::operator <<(ostream & (*)(ostream &))
+/usr/lib/gcc-lib/i386-linux/2.95.4/../../../../include/g++-3/iostream.h:107:                 class ostream & ostream::operator <<(ios & (*)(ios &))
+/usr/lib/gcc-lib/i386-linux/2.95.4/../../../../include/g++-3/iostream.h:108:                 class ostream & ostream::operator <<(streambuf *)
+../../../Berlin/include/Warsaw/exception.hh:29:                 class ostream & operator <<(ostream &, const CORBA::Exception &)
+../../../Berlin/include/Warsaw/exception.hh:39:                 class ostream & operator <<(ostream &, CORBA::Exception *)
+DebugConsole.cc: At top level:
+DebugConsole.cc:68: confused by earlier errors, bailing out

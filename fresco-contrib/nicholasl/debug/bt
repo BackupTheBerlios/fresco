@@ -1,0 +1,654 @@
+--server---------------------------------------------------------------------------
+
+(gdb) thread 1
+
+#0  0x409727f2 in recv () from /lib/libc.so.6
+#1  0x4012d5a4 in recv () from /lib/libpthread.so.0
+#2  0x40482832 in tcpSocketStrand::ll_recv () from /usr/lib/libomniORB3.so.0
+#3  0x4047f2c7 in reliableStreamStrand::fetch () from /usr/lib/libomniORB3.so.0
+#4  0x4047efc5 in reliableStreamStrand::receive ()
+   from /usr/lib/libomniORB3.so.0
+#5  0x4046f77d in NetBufferedStream::receive () from /usr/lib/libomniORB3.so.0
+#6  0x4046f0d0 in NetBufferedStream::get_char_array ()
+   from /usr/lib/libomniORB3.so.0
+#7  0x4046141f in GIOP_C::ReceiveReply () from /usr/lib/libomniORB3.so.0
+#8  0x40431fbf in omniRemoteIdentity::dispatch ()
+   from /usr/lib/libomniORB3.so.0
+#9  0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#10 0x4027256c in Warsaw::_objref_Graphic::traverse ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#11 0x40727e24 in PickTraversalImpl::traverse_child (this=0x8b11a58, 
+    child=0x8be6818, tag=0, region=0x8b4c270, transform=0x8b4bad8)
+    at /home/nicholas/Berlin/src/Berlin/PickTraversalImpl.cc:102
+#12 0x402696d5 in _0RL_lcfn_99855c53438d2015_d0000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#13 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#14 0x40431081 in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#15 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#16 0x40269745 in Warsaw::_objref_Traversal::traverse_child ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#17 0x41291786 in Box::traverse_with_allocation (this=0x8be6e50, t=0x87ea214, 
+    r=0x8b27840) at /home/nicholas/Berlin/src/Layout/Box.cc:294
+#18 0x41290b15 in Box::traverse (this=0x8be6e50, traversal=0x87ea214)
+    at /home/nicholas/Berlin/src/Layout/Box.cc:147
+#19 0x40272504 in _0RL_lcfn_6ff4c770c3cb97d2_d1000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#20 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#21 0x40431081 in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#22 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#23 0x4027256c in Warsaw::_objref_Graphic::traverse ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#24 0x40727e24 in PickTraversalImpl::traverse_child (this=0x8b11a58, 
+    child=0x8be8668, tag=0, region=0x8c10420, transform=0x8b4b268)
+    at /home/nicholas/Berlin/src/Berlin/PickTraversalImpl.cc:102
+#25 0x402696d5 in _0RL_lcfn_99855c53438d2015_d0000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#26 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#27 0x40431081 in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#28 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#29 0x40269745 in Warsaw::_objref_Traversal::traverse_child ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#30 0x412892be in Placement::traverse (this=0x8be8760, traversal=0x87ea214)
+    at /home/nicholas/Berlin/src/Layout/Placement.cc:70
+#31 0x40272504 in _0RL_lcfn_6ff4c770c3cb97d2_d1000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#32 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#33 0x40431081 in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#34 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#35 0x4027256c in Warsaw::_objref_Graphic::traverse ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#36 0x40727e24 in PickTraversalImpl::traverse_child (this=0x8b11a58, 
+    child=0x8be8ae8, tag=0, region=0x8b4bba0, transform=0x80c19c0)
+    at /home/nicholas/Berlin/src/Berlin/PickTraversalImpl.cc:102
+#37 0x402696d5 in _0RL_lcfn_99855c53438d2015_d0000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#38 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#39 0x40431081 in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#40 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#41 0x40269745 in Warsaw::_objref_Traversal::traverse_child ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#42 0x40718c70 in MonoGraphic::traverse (this=0x8be8b58, traversal=0x87ea214)
+    at /home/nicholas/Berlin/src/Berlin/MonoGraphic.cc:183
+#43 0x4072cbe0 in ControllerImpl::pick (this=0x8be8b58, traversal=0x87ea1e0)
+    at /home/nicholas/Berlin/src/Berlin/ControllerImpl.cc:143
+#44 0x4027277c in _0RL_lcfn_6ff4c770c3cb97d2_12000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#45 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#46 0x40431081 in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#47 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#48 0x402727e4 in Warsaw::_objref_Graphic::pick ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#49 0x40728011 in PickTraversalImpl::visit (this=0x8b11a58, g=0x8be8e74)
+    at /home/nicholas/Berlin/src/Berlin/PickTraversalImpl.cc:115
+#50 0x40269818 in _0RL_lcfn_99855c53438d2015_f0000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#51 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#52 0x40431081 in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#53 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#54 0x4026987d in Warsaw::_objref_Traversal::visit ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#55 0x4072c9b1 in ControllerImpl::traverse (this=0x8be8b58, 
+    traversal=0x87ea214)
+    at /home/nicholas/Berlin/src/Berlin/ControllerImpl.cc:128
+#56 0x40272504 in _0RL_lcfn_6ff4c770c3cb97d2_d1000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#57 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#58 0x40431081 in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#59 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#60 0x4027256c in Warsaw::_objref_Graphic::traverse ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#61 0x40727e24 in PickTraversalImpl::traverse_child (this=0x8b11a58, 
+    child=0x8be8e74, tag=0, region=0x8c20810, transform=0x8b42d78)
+    at /home/nicholas/Berlin/src/Berlin/PickTraversalImpl.cc:102
+#62 0x402696d5 in _0RL_lcfn_99855c53438d2015_d0000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#63 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#64 0x40431081 in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#65 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#66 0x40269745 in Warsaw::_objref_Traversal::traverse_child ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#67 0x412892be in Placement::traverse (this=0x8c0b5f8, traversal=0x87ea214)
+    at /home/nicholas/Berlin/src/Layout/Placement.cc:70
+#68 0x40272504 in _0RL_lcfn_6ff4c770c3cb97d2_d1000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#69 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#70 0x40431081 in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#71 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#72 0x4027256c in Warsaw::_objref_Graphic::traverse ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#73 0x40727e24 in PickTraversalImpl::traverse_child (this=0x8b11a58, 
+    child=0x8c0b980, tag=0, region=0x8b4afc8, transform=0x8b436e8)
+    at /home/nicholas/Berlin/src/Berlin/PickTraversalImpl.cc:102
+#74 0x402696d5 in _0RL_lcfn_99855c53438d2015_d0000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#75 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#76 0x40431081 in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#77 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#78 0x40269745 in Warsaw::_objref_Traversal::traverse_child ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#79 0x41291786 in Box::traverse_with_allocation (this=0x8be9e20, t=0x87ea214, 
+    r=0x8b9d438) at /home/nicholas/Berlin/src/Layout/Box.cc:294
+#80 0x41290b15 in Box::traverse (this=0x8be9e20, traversal=0x87ea214)
+    at /home/nicholas/Berlin/src/Layout/Box.cc:147
+#81 0x40272504 in _0RL_lcfn_6ff4c770c3cb97d2_d1000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#82 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#83 0x40431081 in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#84 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#85 0x4027256c in Warsaw::_objref_Graphic::traverse ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#86 0x40727e24 in PickTraversalImpl::traverse_child (this=0x8b11a58, 
+    child=0x8bea368, tag=1, region=0x8b43790, transform=0x8b28948)
+    at /home/nicholas/Berlin/src/Berlin/PickTraversalImpl.cc:102
+#87 0x402696d5 in _0RL_lcfn_99855c53438d2015_d0000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#88 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#89 0x40431081 in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#90 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#91 0x40269745 in Warsaw::_objref_Traversal::traverse_child ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#92 0x41291786 in Box::traverse_with_allocation (this=0x8be9300, t=0x87ea214, 
+    r=0x8be47b0) at /home/nicholas/Berlin/src/Layout/Box.cc:294
+#93 0x41290b15 in Box::traverse (this=0x8be9300, traversal=0x87ea214)
+    at /home/nicholas/Berlin/src/Layout/Box.cc:147
+#94 0x40272504 in _0RL_lcfn_6ff4c770c3cb97d2_d1000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#95 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#96 0x40431081 in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#97 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#98 0x4027256c in Warsaw::_objref_Graphic::traverse ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#99 0x40727e24 in PickTraversalImpl::traverse_child (this=0x8b11a58, 
+    child=0x8be9808, tag=0, region=0x8c10db0, transform=0x80c19c0)
+    at /home/nicholas/Berlin/src/Berlin/PickTraversalImpl.cc:102
+#100 0x402696d5 in _0RL_lcfn_99855c53438d2015_d0000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#101 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#102 0x40431081 in omniLocalIdentity::dispatch ()
+   from /usr/lib/libomniORB3.so.0
+#103 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#104 0x40269745 in Warsaw::_objref_Traversal::traverse_child ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#105 0x40718c70 in MonoGraphic::traverse (this=0x8c0bb48, traversal=0x87ea214)
+    at /home/nicholas/Berlin/src/Berlin/MonoGraphic.cc:183
+#106 0x415ad62f in RGBDecorator::pick (this=0x8c0bb48, traversal=0x87ea1e0)
+    at /home/nicholas/Berlin/src/Tool/ToolKitImpl.cc:63
+#107 0x4027277c in _0RL_lcfn_6ff4c770c3cb97d2_12000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#108 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#109 0x40431081 in omniLocalIdentity::dispatch ()
+   from /usr/lib/libomniORB3.so.0
+#110 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#111 0x402727e4 in Warsaw::_objref_Graphic::pick ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#112 0x40728011 in PickTraversalImpl::visit (this=0x8b11a58, g=0x8c0bcd0)
+    at /home/nicholas/Berlin/src/Berlin/PickTraversalImpl.cc:115
+#113 0x40269818 in _0RL_lcfn_99855c53438d2015_f0000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#114 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#115 0x40431081 in omniLocalIdentity::dispatch ()
+   from /usr/lib/libomniORB3.so.0
+#116 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#117 0x4026987d in Warsaw::_objref_Traversal::visit ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#118 0x415ad429 in RGBDecorator::traverse (this=0x8c0bb48, traversal=0x87ea214)
+    at /home/nicholas/Berlin/src/Tool/ToolKitImpl.cc:52
+#119 0x40272504 in _0RL_lcfn_6ff4c770c3cb97d2_d1000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#120 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#121 0x40431081 in omniLocalIdentity::dispatch ()
+   from /usr/lib/libomniORB3.so.0
+#122 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#123 0x4027256c in Warsaw::_objref_Graphic::traverse ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#124 0x40727e24 in PickTraversalImpl::traverse_child (this=0x8b11a58, 
+    child=0x8c0bcd0, tag=0, region=0x8b286a8, transform=0x80c19c0)
+    at /home/nicholas/Berlin/src/Berlin/PickTraversalImpl.cc:102
+#125 0x402696d5 in _0RL_lcfn_99855c53438d2015_d0000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#126 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#127 0x40431081 in omniLocalIdentity::dispatch ()
+   from /usr/lib/libomniORB3.so.0
+#128 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#129 0x40269745 in Warsaw::_objref_Traversal::traverse_child ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#130 0x40718c70 in MonoGraphic::traverse (this=0x8be8fe0, traversal=0x87ea214)
+    at /home/nicholas/Berlin/src/Berlin/MonoGraphic.cc:183
+#131 0x4072cbe0 in ControllerImpl::pick (this=0x8be8fe0, traversal=0x87ea1e0)
+    at /home/nicholas/Berlin/src/Berlin/ControllerImpl.cc:143
+#132 0x4027277c in _0RL_lcfn_6ff4c770c3cb97d2_12000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#133 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#134 0x40431081 in omniLocalIdentity::dispatch ()
+   from /usr/lib/libomniORB3.so.0
+#135 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#136 0x402727e4 in Warsaw::_objref_Graphic::pick ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#137 0x40728011 in PickTraversalImpl::visit (this=0x8b11a58, g=0x8be92bc)
+    at /home/nicholas/Berlin/src/Berlin/PickTraversalImpl.cc:115
+#138 0x40269818 in _0RL_lcfn_99855c53438d2015_f0000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#139 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#140 0x40431081 in omniLocalIdentity::dispatch ()
+   from /usr/lib/libomniORB3.so.0
+#141 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#142 0x4026987d in Warsaw::_objref_Traversal::visit ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#143 0x4072c9b1 in ControllerImpl::traverse (this=0x8be8fe0, 
+    traversal=0x87ea214)
+    at /home/nicholas/Berlin/src/Berlin/ControllerImpl.cc:128
+#144 0x40272504 in _0RL_lcfn_6ff4c770c3cb97d2_d1000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#145 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#146 0x40431081 in omniLocalIdentity::dispatch ()
+   from /usr/lib/libomniORB3.so.0
+#147 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#148 0x4027256c in Warsaw::_objref_Graphic::traverse ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#149 0x40727e24 in PickTraversalImpl::traverse_child (this=0x8b11a58, 
+    child=0x8be92bc, tag=1, region=0x8b28a10, transform=0x8be3108)
+    at /home/nicholas/Berlin/src/Berlin/PickTraversalImpl.cc:102
+#150 0x402696d5 in _0RL_lcfn_99855c53438d2015_d0000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#151 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#152 0x40431081 in omniLocalIdentity::dispatch ()
+   from /usr/lib/libomniORB3.so.0
+#153 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#154 0x40269745 in Warsaw::_objref_Traversal::traverse_child ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#155 0x412a25bd in StageTraversal::traverse (this=0xbfffe738, handle=0x8c10060)
+    at /home/nicholas/Berlin/src/Layout/StageImpl.cc:500
+#156 0x412a239f in StageTraversal::execute (this=0xbfffe738)
+    at /home/nicholas/Berlin/src/Layout/StageImpl.cc:480
+#157 0x412a371a in StageImpl::traverse (this=0x8aa7aa0, traversal=0x87ea214)
+    at /home/nicholas/Berlin/src/Layout/StageImpl.cc:558
+#158 0x40272504 in _0RL_lcfn_6ff4c770c3cb97d2_d1000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#159 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#160 0x40431081 in omniLocalIdentity::dispatch ()
+   from /usr/lib/libomniORB3.so.0
+#161 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#162 0x4027256c in Warsaw::_objref_Graphic::traverse ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#163 0x40727e24 in PickTraversalImpl::traverse_child (this=0x8b11a58, 
+    child=0x8534fac, tag=0, region=0x8b294f8, transform=0x80c19c0)
+    at /home/nicholas/Berlin/src/Berlin/PickTraversalImpl.cc:102
+#164 0x402696d5 in _0RL_lcfn_99855c53438d2015_d0000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#165 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#166 0x40431081 in omniLocalIdentity::dispatch ()
+   from /usr/lib/libomniORB3.so.0
+#167 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#168 0x40269745 in Warsaw::_objref_Traversal::traverse_child ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#169 0x40718c70 in MonoGraphic::traverse (this=0x85b96e8, traversal=0x87ea214)
+    at /home/nicholas/Berlin/src/Berlin/MonoGraphic.cc:183
+#170 0x4072cbe0 in ControllerImpl::pick (this=0x85b96e8, traversal=0x87ea1e0)
+    at /home/nicholas/Berlin/src/Berlin/ControllerImpl.cc:143
+#171 0x4027277c in _0RL_lcfn_6ff4c770c3cb97d2_12000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#172 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#173 0x40431081 in omniLocalIdentity::dispatch ()
+   from /usr/lib/libomniORB3.so.0
+#174 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#175 0x402727e4 in Warsaw::_objref_Graphic::pick ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#176 0x40728011 in PickTraversalImpl::visit (this=0x8b11a58, g=0x8535088)
+    at /home/nicholas/Berlin/src/Berlin/PickTraversalImpl.cc:115
+#177 0x40269818 in _0RL_lcfn_99855c53438d2015_f0000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#178 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#179 0x40431081 in omniLocalIdentity::dispatch ()
+   from /usr/lib/libomniORB3.so.0
+#180 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#181 0x4026987d in Warsaw::_objref_Traversal::visit ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#182 0x4072c9b1 in ControllerImpl::traverse (this=0x85b96e8, 
+    traversal=0x87ea214)
+    at /home/nicholas/Berlin/src/Berlin/ControllerImpl.cc:128
+#183 0x40272504 in _0RL_lcfn_6ff4c770c3cb97d2_d1000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#184 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#185 0x40431081 in omniLocalIdentity::dispatch ()
+   from /usr/lib/libomniORB3.so.0
+#186 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#187 0x4027256c in Warsaw::_objref_Graphic::traverse ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#188 0x40727e24 in PickTraversalImpl::traverse_child (this=0x8b11a58, 
+    child=0x8535088, tag=0, region=0x8b7ab38, transform=0x80c19c0)
+    at /home/nicholas/Berlin/src/Berlin/PickTraversalImpl.cc:102
+#189 0x402696d5 in _0RL_lcfn_99855c53438d2015_d0000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#190 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#191 0x40431081 in omniLocalIdentity::dispatch ()
+   from /usr/lib/libomniORB3.so.0
+#192 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#193 0x40269745 in Warsaw::_objref_Traversal::traverse_child ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#194 0x40718c70 in MonoGraphic::traverse (this=0x8826d50, traversal=0x87ea214)
+    at /home/nicholas/Berlin/src/Berlin/MonoGraphic.cc:183
+#195 0x4073ad09 in ScreenImpl::pick (this=0x8826d50, traversal=0x87ea1e0)
+    at /home/nicholas/Berlin/src/Berlin/ScreenImpl.cc:66
+#196 0x4027277c in _0RL_lcfn_6ff4c770c3cb97d2_12000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#197 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#198 0x40431081 in omniLocalIdentity::dispatch ()
+   from /usr/lib/libomniORB3.so.0
+#199 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#200 0x402727e4 in Warsaw::_objref_Graphic::pick ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#201 0x40728011 in PickTraversalImpl::visit (this=0x8b11a58, g=0x8a80234)
+    at /home/nicholas/Berlin/src/Berlin/PickTraversalImpl.cc:115
+#202 0x40269818 in _0RL_lcfn_99855c53438d2015_f0000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#203 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#204 0x40431081 in omniLocalIdentity::dispatch ()
+   from /usr/lib/libomniORB3.so.0
+#205 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#206 0x4026987d in Warsaw::_objref_Traversal::visit ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#207 0x4072c9b1 in ControllerImpl::traverse (this=0x8826d50, 
+    traversal=0x87ea214)
+    at /home/nicholas/Berlin/src/Berlin/ControllerImpl.cc:128
+#208 0x40272504 in _0RL_lcfn_6ff4c770c3cb97d2_d1000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#209 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#210 0x40431081 in omniLocalIdentity::dispatch ()
+   from /usr/lib/libomniORB3.so.0
+#211 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#212 0x4027256c in Warsaw::_objref_Graphic::traverse ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#213 0x40741a4f in PositionalFocus::dispatch (this=0x86c0300, event=@0x8c113a8)
+    at /home/nicholas/Berlin/src/Berlin/PositionalFocus.cc:284
+#214 0x4073e989 in EventManager::next_event (this=0x89ef588)
+    at /home/nicholas/Berlin/src/Berlin/EventManager.cc:86
+#215 0x4073d563 in ScreenManager::run (this=0x8b20cf0)
+    at /home/nicholas/Berlin/src/Berlin/ScreenManager.cc:139
+#216 0x08057493 in main ()
+#217 0x408bb14f in __libc_start_main () from /lib/libc.so.6
+
+#215 ScreenManager::run
+#214 EventManager::next_event
+#213 PositionalFocus::dispatch
+#207 ControllerImpl.cc::traverse
+#201 PickTraversalImpl::visit
+#195 ScreenImpl.cc::pick
+#194 MonoGraphic::traverse
+#182 ControllerImpl::traverse
+#176 PickTraversalImpl::visit
+#170 ControllerImpl::pick
+#169 MonoGraphic::traverse
+#157 StageImpl.cc:traverse
+#143 ControllerImpl::traverse
+#137 PickTraversalImpl::visit
+#131 ControllerImpl::pick
+#130 MonoGraphic::traverse
+#118 RGBDecorator::traverse
+#112 PickTraversalImpl::visit
+#106 RGBDecorator::pick
+#105 MonoGraphic::traverse
+#92  Box::traverse_with_allocation
+#79  Box::traverse_with_allocation
+#55  ControllerImpl::traverse
+#43  ControllerImpl::pick
+#42  MonoGraphic::traverse
+#30  Placement::traverse
+#17  Box::traverse_with_allocation
+
+#16 0x40269745 in Warsaw::_objref_Traversal::traverse_child ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#11 0x40727e24 in PickTraversalImpl::traverse_child (this=0x8b11a58, 
+    child=0x8be6818, tag=0, region=0x8b4c270, transform=0x8b4bad8)
+    at /home/nicholas/Berlin/src/Berlin/PickTraversalImpl.cc:102
+#10 0x4027256c in Warsaw::_objref_Graphic::traverse ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#9  0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#8  0x40431fbf in omniRemoteIdentity::dispatch ()
+   from /usr/lib/libomniORB3.so.0
+#7  0x4046141f in GIOP_C::ReceiveReply () from /usr/lib/libomniORB3.so.0
+#6  0x4046f0d0 in NetBufferedStream::get_char_array ()
+   from /usr/lib/libomniORB3.so.0
+#5  0x4046f77d in NetBufferedStream::receive () from /usr/lib/libomniORB3.so.0
+#4  0x4047efc5 in reliableStreamStrand::receive ()
+   from /usr/lib/libomniORB3.so.0
+#3  0x4047f2c7 in reliableStreamStrand::fetch () from /usr/lib/libomniORB3.so.0
+#2  0x40482832 in tcpSocketStrand::ll_recv () from /usr/lib/libomniORB3.so.0
+#1  0x4012d5a4 in recv () from /lib/libpthread.so.0
+#0  0x409727f2 in recv () from /lib/libc.so.6
+
+(gdb) thread 8
+
+#0  0x408cb87e in sigsuspend () from /lib/libc.so.6
+#1  0x4012a879 in __pthread_wait_for_restart_signal ()
+   from /lib/libpthread.so.0
+#2  0x4012ca36 in __pthread_alt_lock () from /lib/libpthread.so.0
+#3  0x40128fd2 in pthread_mutex_lock () from /lib/libpthread.so.0
+#4  0x080603b3 in Prague::Mutex::lock ()
+#5  0x08060b2b in Prague::Lock_Trait<Prague::Mutex>::lock ()
+#6  0x0806042f in Prague::Guard<Prague::Mutex, Prague::Lock_Trait<Prague::Mutex> >::Guard ()
+#7  0x412a5604 in StageImpl::resize (this=0x8b11a80, handle=0x80f7e58, 
+    s=@0xbedfe4f4) at /home/nicholas/Berlin/src/Layout/StageImpl.cc:757
+#8  0x412a63cc in StageHandleImpl::size (this=0x80f7e58, ss=@0xbedfe4f4)
+    at /home/nicholas/Berlin/src/Layout/StageImpl.cc:871
+#9  0x4029f1d8 in _0RL_lcfn_9294631511305a97_41000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#10 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#11 0x40431081 in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#12 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#13 0x4029f23d in Layout::_objref_StageHandle::size ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#14 0x40d1b24c in WindowImpl::need_resize (this=0x8997b10)
+    at /home/nicholas/Berlin/src/Desktop/WindowImpl.cc:112
+#15 0x40272c77 in _0RL_lcfn_6ff4c770c3cb97d2_82000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#16 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#17 0x40431081 in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#18 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#19 0x40272cdc in Warsaw::_objref_Graphic::need_resize ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#20 0x40710e82 in GraphicImpl::need_resize (this=0x80fc7c8)
+    at /home/nicholas/Berlin/src/Berlin/GraphicImpl.cc:429
+#21 0x40272c77 in _0RL_lcfn_6ff4c770c3cb97d2_82000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#22 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#23 0x40431081 in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#24 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#25 0x40272cdc in Warsaw::_objref_Graphic::need_resize ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#26 0x40710e82 in GraphicImpl::need_resize (this=0x890c4e0)
+    at /home/nicholas/Berlin/src/Berlin/GraphicImpl.cc:429
+#27 0x4071a93c in PolyGraphic::need_resize (this=0x890c4e0)
+    at /home/nicholas/Berlin/src/Berlin/PolyGraphic.cc:191
+#28 0x41290d83 in Box::need_resize (this=0x890c4e0)
+    at /home/nicholas/Berlin/src/Layout/Box.cc:168
+#29 0x40272c77 in _0RL_lcfn_6ff4c770c3cb97d2_82000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#30 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#31 0x40431081 in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#32 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#33 0x40272cdc in Warsaw::_objref_Graphic::need_resize ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#34 0x40710e82 in GraphicImpl::need_resize (this=0x8ae7f58)
+    at /home/nicholas/Berlin/src/Berlin/GraphicImpl.cc:429
+#35 0x4071a93c in PolyGraphic::need_resize (this=0x8ae7f58)
+    at /home/nicholas/Berlin/src/Berlin/PolyGraphic.cc:191
+#36 0x41290d83 in Box::need_resize (this=0x8ae7f58)
+    at /home/nicholas/Berlin/src/Layout/Box.cc:168
+#37 0x40272c77 in _0RL_lcfn_6ff4c770c3cb97d2_82000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#38 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#39 0x40431081 in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#40 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#41 0x40272cdc in Warsaw::_objref_Graphic::need_resize ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#42 0x40710e82 in GraphicImpl::need_resize (this=0x80fc278)
+    at /home/nicholas/Berlin/src/Berlin/GraphicImpl.cc:429
+#43 0x40272c77 in _0RL_lcfn_6ff4c770c3cb97d2_82000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#44 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#45 0x40431081 in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#46 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#47 0x40272cdc in Warsaw::_objref_Graphic::need_resize ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#48 0x40710e82 in GraphicImpl::need_resize (this=0x8b11110)
+    at /home/nicholas/Berlin/src/Berlin/GraphicImpl.cc:429
+#49 0x40272c77 in _0RL_lcfn_6ff4c770c3cb97d2_82000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#50 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#51 0x40431081 in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#52 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#53 0x40272cdc in Warsaw::_objref_Graphic::need_resize ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#54 0x40710e82 in GraphicImpl::need_resize (this=0x8866730)
+    at /home/nicholas/Berlin/src/Berlin/GraphicImpl.cc:429
+#55 0x40272c77 in _0RL_lcfn_6ff4c770c3cb97d2_82000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#56 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#57 0x40431081 in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#58 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#59 0x40272cdc in Warsaw::_objref_Graphic::need_resize ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#60 0x40710e82 in GraphicImpl::need_resize (this=0x8ab0350)
+    at /home/nicholas/Berlin/src/Berlin/GraphicImpl.cc:429
+#61 0x4071a93c in PolyGraphic::need_resize (this=0x8ab0350)
+    at /home/nicholas/Berlin/src/Berlin/PolyGraphic.cc:191
+#62 0x41290d83 in Box::need_resize (this=0x8ab0350)
+    at /home/nicholas/Berlin/src/Layout/Box.cc:168
+#63 0x40272c77 in _0RL_lcfn_6ff4c770c3cb97d2_82000000 ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#64 0x4043bc77 in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#65 0x40431081 in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#66 0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#67 0x40272cdc in Warsaw::_objref_Graphic::need_resize ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#68 0x40710e82 in GraphicImpl::need_resize (this=0x89b7ca0)
+    at /home/nicholas/Berlin/src/Berlin/GraphicImpl.cc:429
+#69 0x4071a93c in PolyGraphic::need_resize (this=0x89b7ca0)
+    at /home/nicholas/Berlin/src/Berlin/PolyGraphic.cc:191
+#70 0x41290d83 in Box::need_resize (this=0x89b7ca0)
+    at /home/nicholas/Berlin/src/Layout/Box.cc:168
+#71 0x40719fe2 in PolyGraphic::append_graphic (this=0x89b7ca0, child=0x8c079e8)
+    at /home/nicholas/Berlin/src/Berlin/PolyGraphic.cc:132
+#72 0x402733c8 in Warsaw::_impl_Graphic::_dispatch ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#73 0x4043b8ba in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#74 0x4043146f in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#75 0x4046377a in GIOP_S::HandleRequest () from /usr/lib/libomniORB3.so.0
+#76 0x40462e99 in GIOP_S::dispatcher () from /usr/lib/libomniORB3.so.0
+#77 0x40483979 in tcpSocketWorker::_realRun () from /usr/lib/libomniORB3.so.0
+#78 0x40470c0e in omniORB::giopServerThreadWrapper::run ()
+   from /usr/lib/libomniORB3.so.0
+#79 0x40483900 in tcpSocketWorker::run () from /usr/lib/libomniORB3.so.0
+#80 0x403d582f in omni_thread_wrapper () from /usr/lib/libomnithread.so.2
+#81 0x401280ba in pthread_start_thread () from /lib/libpthread.so.0
+#82 0x40128101 in pthread_start_thread_event () from /lib/libpthread.so.0
+
+(gdb) thread 9
+
+#0  0x409727f2 in recv () from /lib/libc.so.6
+#1  0x4012d5a4 in recv () from /lib/libpthread.so.0
+#2  0x40482832 in tcpSocketStrand::ll_recv () from /usr/lib/libomniORB3.so.0
+#3  0x4047f2c7 in reliableStreamStrand::fetch () from /usr/lib/libomniORB3.so.0
+#4  0x4047efc5 in reliableStreamStrand::receive ()
+   from /usr/lib/libomniORB3.so.0
+#5  0x4046f77d in NetBufferedStream::receive () from /usr/lib/libomniORB3.so.0
+#6  0x4046f0d0 in NetBufferedStream::get_char_array ()
+   from /usr/lib/libomniORB3.so.0
+#7  0x4046141f in GIOP_C::ReceiveReply () from /usr/lib/libomniORB3.so.0
+#8  0x40431fbf in omniRemoteIdentity::dispatch ()
+   from /usr/lib/libomniORB3.so.0
+#9  0x4042ff73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#10 0x402727e4 in Warsaw::_objref_Graphic::pick ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#11 0x40728011 in PickTraversalImpl::visit (this=0x87ea108, g=0x8b42e10)
+    at /home/nicholas/Berlin/src/Berlin/PickTraversalImpl.cc:115
+#12 0x4026a648 in Warsaw::_impl_Traversal::_dispatch ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#13 0x4026d17f in Warsaw::_impl_PickTraversal::_dispatch ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#14 0x4043b8ba in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#15 0x4043146f in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#16 0x4046377a in GIOP_S::HandleRequest () from /usr/lib/libomniORB3.so.0
+#17 0x40462e99 in GIOP_S::dispatcher () from /usr/lib/libomniORB3.so.0
+#18 0x40483979 in tcpSocketWorker::_realRun () from /usr/lib/libomniORB3.so.0
+#19 0x40470c0e in omniORB::giopServerThreadWrapper::run ()
+   from /usr/lib/libomniORB3.so.0
+#20 0x40483900 in tcpSocketWorker::run () from /usr/lib/libomniORB3.so.0
+#21 0x403d582f in omni_thread_wrapper () from /usr/lib/libomnithread.so.2
+#22 0x401280ba in pthread_start_thread () from /lib/libpthread.so.0
+#23 0x40128101 in pthread_start_thread_event () from /lib/libpthread.so.0
+
+
+--client---------------------------------------------------------------------------
+
+(gdb)thread 6
+
+#0  0x4092c7f2 in recv () from /lib/libc.so.6
+#1  0x40600832 in tcpSocketStrand::ll_recv () from /usr/lib/libomniORB3.so.0
+#2  0x405fd2c7 in reliableStreamStrand::fetch () from /usr/lib/libomniORB3.so.0
+#3  0x405fcfc5 in reliableStreamStrand::receive ()
+   from /usr/lib/libomniORB3.so.0
+#4  0x405ed77d in NetBufferedStream::receive () from /usr/lib/libomniORB3.so.0
+#5  0x405ed0d0 in NetBufferedStream::get_char_array ()
+   from /usr/lib/libomniORB3.so.0
+#6  0x405df41f in GIOP_C::ReceiveReply () from /usr/lib/libomniORB3.so.0
+#7  0x405affbf in omniRemoteIdentity::dispatch ()
+   from /usr/lib/libomniORB3.so.0
+#8  0x405adf73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#9  0x402a680c in Warsaw::_objref_Graphic::append_graphic ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#10 0x080622e4 in DebugConsole::append_text (this=0x80a5fe0, 
+    c=0xbf1ff6f0 "Controller: pick") at DebugConsole.cc:53
+#11 0x08061e89 in DebugConsole::start_event (this=0x80a5fe0, 
+    id=0x8062d07 "Controller", name=0x806293c "pick", 
+    ext=0x8062900 "void DebugController::pick(Warsaw::_objref_PickTraversal *)") at DebugConsole.cc:68
+#12 0x0805ff8d in DebugController::pick (this=0x80a6910, t=0x80b3b80)
+    at DebugController.hh:53
+#13 0x402a91dd in Warsaw::_impl_Graphic::_dispatch ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#14 0x402ba520 in Warsaw::_impl_Controller::_dispatch ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#15 0x405b98ba in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#16 0x405af46f in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#17 0x405e177a in GIOP_S::HandleRequest () from /usr/lib/libomniORB3.so.0
+#18 0x405e0e99 in GIOP_S::dispatcher () from /usr/lib/libomniORB3.so.0
+#19 0x40601979 in tcpSocketWorker::_realRun () from /usr/lib/libomniORB3.so.0
+#20 0x405eec0e in omniORB::giopServerThreadWrapper::run ()
+   from /usr/lib/libomniORB3.so.0
+#21 0x40601900 in tcpSocketWorker::run () from /usr/lib/libomniORB3.so.0
+#22 0x4055382f in omni_thread_wrapper () from /usr/lib/libomnithread.so.2
+#23 0x409ae0ba in pthread_start_thread () from /lib/libpthread.so.0
+
+(gdb) thread 7
+
+#0  0x4092c7f2 in recv () from /lib/libc.so.6
+#1  0x40600832 in tcpSocketStrand::ll_recv () from /usr/lib/libomniORB3.so.0
+#2  0x405fd2c7 in reliableStreamStrand::fetch () from /usr/lib/libomniORB3.so.0
+#3  0x405fcfc5 in reliableStreamStrand::receive ()
+   from /usr/lib/libomniORB3.so.0
+#4  0x405ed77d in NetBufferedStream::receive () from /usr/lib/libomniORB3.so.0
+#5  0x405ed0d0 in NetBufferedStream::get_char_array ()
+   from /usr/lib/libomniORB3.so.0
+#6  0x405df41f in GIOP_C::ReceiveReply () from /usr/lib/libomniORB3.so.0
+#7  0x405affbf in omniRemoteIdentity::dispatch ()
+   from /usr/lib/libomniORB3.so.0
+#8  0x405adf73 in omniObjRef::_invoke () from /usr/lib/libomniORB3.so.0
+#9  0x4029e87d in Warsaw::_objref_Traversal::visit ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#10 0x400cc9b1 in ControllerImpl::traverse (this=0x80a6910, 
+    traversal=0x80b3a7c)
+    at /home/nicholas/Berlin/src/Berlin/ControllerImpl.cc:128
+#11 0x402a8fdd in Warsaw::_impl_Graphic::_dispatch ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#12 0x402ba520 in Warsaw::_impl_Controller::_dispatch ()
+   from /home/nicholas/Berlin/lib/libWarsaw.so
+#13 0x405b98ba in omniOrbPOA::dispatch () from /usr/lib/libomniORB3.so.0
+#14 0x405af46f in omniLocalIdentity::dispatch () from /usr/lib/libomniORB3.so.0
+#15 0x405e177a in GIOP_S::HandleRequest () from /usr/lib/libomniORB3.so.0
+#16 0x405e0e99 in GIOP_S::dispatcher () from /usr/lib/libomniORB3.so.0
+#17 0x40601979 in tcpSocketWorker::_realRun () from /usr/lib/libomniORB3.so.0
+#18 0x405eec0e in omniORB::giopServerThreadWrapper::run ()
+   from /usr/lib/libomniORB3.so.0
+#19 0x40601900 in tcpSocketWorker::run () from /usr/lib/libomniORB3.so.0
+#20 0x4055382f in omni_thread_wrapper () from /usr/lib/libomnithread.so.2
+#21 0x409ae0ba in pthread_start_thread () from /lib/libpthread.so.0
