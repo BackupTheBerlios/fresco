@@ -50,7 +50,7 @@ int main(int argc, char **argv)
     assert(pman);
     pman->activate();
 
-    client = new ClientContextImpl("Test");
+    client = new ClientContextImpl("Rotated");
     assert(client);
 
     Server_var s = resolve_name<Server>(context, "IDL:Warsaw/Server:1.0");
