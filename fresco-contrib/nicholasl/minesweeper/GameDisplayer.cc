@@ -27,8 +27,7 @@ GameDisplayer::GameDisplayer(Fresco::ServerContext_var server)
 
 Fresco::Graphic_var GameDisplayer::graphic()
 {
-  //return active_graphic;
-  return Fresco::Graphic::_duplicate(_grid);
+  return active_graphic;
 }
 
 void GameDisplayer::expose(int x, int y, int type)
@@ -52,10 +51,18 @@ void GameDisplayer::new_field(int width, int height, Fresco::Command_ptr cmd)
       CORBA::Any any;
       any <<= (CORBA::Long)(8*i+j);
       mine_button->payload(any);
+#if 0
+      /* stress-test the payload code */
+      any <<= (CORBA::Long)(999);
+      CORBA::Any_var any2 = mine_button->payload();
+      CORBA::Long x;
+      any2 >>= x;
+      assert(x != 999);
+      assert(x == 8*i+j);
+#endif
       _grid->replace(mine_button, index);
     }
   }
 
-  // wrap it in a _var to prevent a leak. l_c_g() returns an _ptr object.
   Fresco::GraphicIterator_var(active_graphic->last_child_graphic())->replace(_grid);
 }

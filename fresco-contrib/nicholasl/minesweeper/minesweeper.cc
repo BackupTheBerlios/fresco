@@ -9,6 +9,19 @@ void SelectMine::execute(const CORBA::Any &a) {
   _context->expose(x, y);
 }
 
+class RestartGame : public virtual POA_Fresco::Command,
+		    public virtual PortableServer::RefCountServantBase
+{
+public:
+  RestartGame::RestartGame(GameContext *game) : _game(game) {}
+  void RestartGame::execute(const CORBA::Any &) {
+    _game->new_field(8, 8);
+  }
+  void destroy() {}
+private:
+  GameContext *_game;
+};
+
 int main(int argc, char **argv)
 {
   CORBA::ORB_var orb;
@@ -36,6 +49,8 @@ int main(int argc, char **argv)
   Fresco::DesktopKit_var desktop = resolve_kit<Fresco::DesktopKit>(server, "IDL:fresco.org/Fresco/DesktopKit:1.0");
   Fresco::ToolKit_var tool = resolve_kit<Fresco::ToolKit>(server, "IDL:fresco.org/Fresco/ToolKit:1.0");
   Fresco::LayoutKit_var layout = resolve_kit<Fresco::LayoutKit>(server, "IDL:fresco.org/Fresco/LayoutKit:1.0");
+  Fresco::TextKit_var text = resolve_kit<Fresco::TextKit>(server, "IDL:fresco.org/Fresco/TextKit:1.0");
+  Fresco::WidgetKit_var widget = resolve_kit<Fresco::WidgetKit>(server, "IDL:fresco.org/Fresco/WidgetKit:1.0");
 
   Fresco::Graphic_var vbox = layout->vbox();
   Fresco::ToolKit::FrameSpec spec;
@@ -43,12 +58,23 @@ int main(int argc, char **argv)
   Fresco::Graphic_var window_frame = tool->frame(vbox, 20., spec, true);
 
   Fresco::Graphic_var vb = layout->vbox();
-  Fresco::MainController_var group = tool->group(Fresco::Graphic_var(layout->align(window_frame, 0., 0.)));
 
   GameDisplayer *display = new GameDisplayer(server);
   GameContext *game = new GameContext(display);
 
+  RestartGame *restart_cmd = new RestartGame(game);
+  Fresco::Graphic_var hbox = layout->hbox();
+  Fresco::Graphic_var restart = tool->rgb(text->chunk(Unicode::to_CORBA(Babylon::String(":-)"))), 0., 0., 0.);
+  Fresco::Trigger_var restart_button = widget->button(restart, (Fresco::Command_var)restart_cmd->_this());
+  hbox->append_graphic(layout->hfill());
+  hbox->append_graphic(layout->margin(restart_button, 20));
+  hbox->append_graphic(layout->hfill());
+
+  Fresco::MainController_var group = tool->group(Fresco::Graphic_var(layout->align(window_frame, 0., 0.)));
+
   game->new_field(8, 8);
+
+  vbox->append_graphic(hbox);
   vbox->append_graphic(display->graphic());
 
   Fresco::Window_var window = desktop->shell(group, Fresco::ClientContext_var(client->_this()));
