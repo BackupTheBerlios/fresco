@@ -11,10 +11,12 @@ public:
   GameContext::GameContext(GameDisplayer *);
   GameContext::~GameContext();
   void new_field(int width, int height);
-  void recurse(int x, int y);
-  CORBA::Boolean is_exposed(int x, int y);
+  void expose(int x, int y);
 private:
-  CORBA::Boolean map[8][8];
+  bool is_exposed(int x, int y);
+  void set_exposed(int x, int y);
+  void expose2(int x, int y, vector<int> *to_expose);
+  bool map[8][8];
   GameDisplayer *_gd;
   int _width;
   int _height;

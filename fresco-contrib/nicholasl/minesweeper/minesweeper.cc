@@ -6,7 +6,7 @@ void SelectMine::execute(const CORBA::Any &a) {
   a >>= val;
   x = (int)floor(val/8.);
   y = val-(x*8);
-  _context->recurse(x, y);
+  _context->expose(x, y);
 }
 
 int main(int argc, char **argv)

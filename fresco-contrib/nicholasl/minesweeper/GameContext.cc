@@ -28,7 +28,7 @@ GameContext::GameContext(GameDisplayer *display)
   *(field+18) = 0;
   *(field+19) = 0;
   *(field+20) = 0;
-  *(field+21) = 0;
+  *(field+21) = 1;
   *(field+22) = 3;
   *(field+23) = 9;
 
@@ -76,6 +76,8 @@ GameContext::GameContext(GameDisplayer *display)
   *(field+61) = 2;
   *(field+62) = 9;
   *(field+63) = 1;
+
+  memset(map, 0, sizeof(bool) * 8 * 8);
 }
 
 GameContext::~GameContext()
@@ -94,43 +96,64 @@ void GameContext::new_field(int w, int h)
   _gd->new_field(_width, _height, sm_cmd);
 }
 
-CORBA::Boolean GameContext::is_exposed(int x, int y)
+bool GameContext::is_exposed(int x, int y)
 {
-  CORBA::Boolean ret = map[x][y];
-  map[x][y] = true;
-  return ret;
+  return map[x][y];
 }
 
-void GameContext::recurse(int x, int y)
+void GameContext::set_exposed(int x, int y)
 {
+  map[x][y] = true;
+}
+
+void GameContext::expose(int x, int y)
+{
+  vector<int> need_expose;
+  need_expose.push_back(x*_width+y);
+  while (need_expose.size()) {
+    int coord = need_expose.back();
+    need_expose.pop_back();
+    int coord_x = (int)floor(coord/_width);
+    int coord_y = coord-(coord_x*_width);
+    expose2(coord_x, coord_y, &need_expose);
+  }
+}
+
+void GameContext::expose2(int x, int y, vector<int> *need_expose) {
   if (is_exposed(x, y)) { return;}
+
   int i = field[x*_width+y];
   _gd->expose(x, y, i);
-  
-#if 0 // stack overflow
+  set_exposed(x, y);
+  std::cerr << "(" << x << "," << y << ")" << std::endl;
   if (i == 0) {
     if (x > 0) {
-      recurse(x-1, y);
+      if (!is_exposed(x-1, y))
+	need_expose->push_back((x-1)*_width+y);
       if (y > 0)
-	recurse(x-1, y-1);
-      if (y < _height)
-	recurse(x-1, y+1);
+	if (!is_exposed(x-1, y-1))
+	  need_expose->push_back((x-1)*_width+(y-1));
+      if (y < _height-1)
+	if (!is_exposed(x-1, y+1))
+	  need_expose->push_back((x-1)*_width+(y+1));
     }
-
+    
     if (y > 0)
-      recurse(x, y-1);
-    if (y < _height)
-      recurse(x, y+1);
-
-    if (x < _width) {
-      recurse(x+1, y);
+      if (!is_exposed(x, y-1))
+	need_expose->push_back(x*_width+(y-1));
+    if (y < _height-1)
+      if (!is_exposed(x, y+1))
+	need_expose->push_back(x*_width+(y+1));
+    
+    if (x < _width-1) {
+      if (!is_exposed(x+1, y))
+	need_expose->push_back((x+1)*_width+y);
       if (y > 0)
-	recurse(x+1, y-1);
-      if (y < _height)
-	recurse(x+1, y+1);
+	if (!is_exposed(x+1, y-1))
+	  need_expose->push_back((x+1)*_width+(y-1));
+      if (y < _height-1)
+	if (!is_exposed(x+1, y+1))
+	  need_expose->push_back((x+1)*_width+(y+1));
     }
-
   }
-#endif
 }
-
