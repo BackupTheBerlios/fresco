@@ -19,7 +19,7 @@ using namespace Prague;
 using namespace Fresco;
 
 class ExitCommand : public virtual POA_Fresco::Command,
-		    public virtual PortableServer::RefCountServantBase
+                    public virtual PortableServer::RefCountServantBase
 {
  public:
   void execute(const CORBA::Any &) { exit(0); }
@@ -29,7 +29,6 @@ class ExitCommand : public virtual POA_Fresco::Command,
 int main(int argc, char **argv)
 {
   CORBA::ORB_var orb;
-  CosNaming::NamingContext_var context;
   PortableServer::POA_var poa;
   PortableServer::POAManager_var pman;
   ClientContextImpl *client;
@@ -55,6 +54,14 @@ int main(int argc, char **argv)
     assert(server);
   } catch (CORBA::COMM_FAILURE c) {
     std::cerr << "Could not connect to the berlin server (CORBA::COMM_FAILURE)." << std::endl;
+    exit(0);
+  } catch (const std::exception &e) {
+    std::cerr << "Failed by exception: " << e.what() << std::endl;
+    exit(0);
+  } catch (...) {
+    std::cerr << "Failed by exception. Have a debugger break on __throw."
+              << std::endl;
+    exit(0);
   }
 
   DesktopKit_var desktop = resolve_kit<DesktopKit>(server, "IDL:fresco.org/Fresco/DesktopKit:1.0");
@@ -91,5 +98,5 @@ int main(int argc, char **argv)
   Window_var window = desktop->shell(group, ClientContext_var(client->_this()));
   assert(window);
   desktop->map(window, true);
-  while (true) Thread::delay(Prague::Time(1000));
+  orb->run();
 }
