@@ -36,10 +36,10 @@ int main(int argc, char **argv)
   ServerContext_var server;
 
   try {
+    Prague::GetOpt getopt(argv[0], "C++ Fresco Helloworld");
+    add_resolving_options_to_getopt(getopt);
     orb = CORBA::ORB_init(argc, argv);
     assert(orb);
-    context = resolve_init<CosNaming::NamingContext>(orb, "NameService");
-    assert(context);
     poa = resolve_init<PortableServer::POA>(orb, "RootPOA");
     assert(poa);
     pman = poa->the_POAManager();
@@ -49,7 +49,7 @@ int main(int argc, char **argv)
     client = new ClientContextImpl("Hello World!");
     assert(client);
 
-    Server_var s = resolve_name<Server>(context, "IDL:fresco.org/Fresco/Server:1.0");
+    Server_var s = resolve_server(getopt, orb);
     assert(s);
     server = s->create_server_context(ClientContext_var(client->_this()));
     assert(server);
