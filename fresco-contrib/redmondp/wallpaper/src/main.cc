@@ -73,6 +73,7 @@ int main(int argc, char **argv)
      Wallpaper *app = new Wallpaper(server_context, client_ref, value);
      
      app->run();
+     orb->run();
      delete app;
      delete client;
   }

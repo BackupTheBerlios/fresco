@@ -54,11 +54,8 @@ Wallpaper::Wallpaper(ServerContext_ptr sc, ClientContext_ptr cc,
     my_widget(::resolve_kit<Fresco::WidgetKit>(my_server,
       "IDL:fresco.org/Fresco/WidgetKit:1.0"))
 {
-//  const char *fname = "SimpleDesktop/wallpaper.png";
   Raster_var raster = my_raster->create_raster(fname.c_str());
-//  Image_var image = my_figure->pixmap(raster);
   my_root = my_figure->pixmap(raster);
-//  my_root = image;
 }
 
 Wallpaper::~Wallpaper()
@@ -76,12 +73,8 @@ void Wallpaper::run()
   s.y = 8500;
   s.z = 0.;
   Controller_var group = my_tool->group(my_root);
-  Layout::StageHandle_var handle = desktop->insert(group, p, s, 0);
+  // 1000 is just a hack for now...
+  Layout::StageHandle_var handle = desktop->insert(group, p, s, 1000);
   desktop->unlock();
-
-  while (true) 
-  {
-    Thread::delay(Prague::Time(1000));
-  }
 }
 
