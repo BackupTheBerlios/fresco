@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Virtual Library</title>
+</head>
+<body>
+<p>Moved to <a href="http://vlib.org/">vlib.org</a>.</p>
+<h1>Moved to <a href="http://vlib.org/">vlib.org</a>.</h1>
+<h2>Moved to <a href="http://vlib.org/">vlib.org</a>.</h2>
+<p>Moved to <a href="http://vlib.org/">vlib.org</a>.</p>
+<table>
+<tr><th>header</th><th>header</th></tr>
+<tr><td>
+<ul>
+<li>foo</li>
+<li>bar</li>
+</ul>
+</td><td><em>data2</em></td></tr>
+</table>
+<ol>
+<li>foo</li>
+<li>
+<ul>
+<li>foo</li>
+<li>bar</li>
+</ul>
+</li>
+<li>bar</li>
+</ol>
+<ol>
+<li>foo</li>
+<table>
+<tr><th>header</th><th>header</th></tr>
+<tr><td>data</td><td><em>data2</em></td></tr>
+</table>
+<li>
+</li>
+<li>bar</li>
+</ol>
+</body>
+</html>
