@@ -1,3 +1,4 @@
+CPP=c++
 FRESCO=../../../Berlin/
 LIBFRESCO="-lBerlin -lWarsaw -lBabylon -lPrague"
 LIBORB="-lomnithread -ltcpwrapGK -lomniORB3 -lomniDynamic3"
