@@ -1,3 +1,5 @@
+#include <Fresco/config.hh>
+#include <Fresco/resolve.hh>
 #include "minesweeper.hh"
 
 void SelectMine::execute(const CORBA::Any &a) {
@@ -24,8 +26,13 @@ private:
 
 int main(int argc, char **argv)
 {
+  Prague::GetOpt getopt(argv[0], "Fresco Minesweeper");
+  getopt.add('h', "help", Prague::GetOpt::novalue, "help message");
+  add_resolving_options_to_getopt(getopt);
+  getopt.parse(argc, argv);
+  if (getopt.is_set('h')) { getopt.usage(); exit(0); }
+
   CORBA::ORB_var orb;
-  CosNaming::NamingContext_var context;
   PortableServer::POA_var poa;
   PortableServer::POAManager_var pman;
   ClientContextImpl *client;
@@ -33,15 +40,13 @@ int main(int argc, char **argv)
 
   try {
     orb = CORBA::ORB_init(argc, argv);
-    context = resolve_init<CosNaming::NamingContext>(orb, "NameService");
     poa = resolve_init<PortableServer::POA>(orb, "RootPOA");
     pman = poa->the_POAManager();
     pman->activate();
 
     client = new ClientContextImpl("Fresco Minesweeper");
 
-    Fresco::Server_var s = resolve_name<Fresco::Server>(context, "IDL:fresco.org/Fresco/Server:1.0");
-    server = s->create_server_context(Fresco::ClientContext_var(client->_this()));
+    server = resolve_server(getopt, orb)->create_server_context(client->_this());
   } catch (CORBA::COMM_FAILURE c) {
     std::cerr << "Could not connect to the berlin server (CORBA::COMM_FAILURE)." << std::endl;
   }
@@ -72,7 +77,7 @@ int main(int argc, char **argv)
 
   Fresco::MainController_var group = tool->group(Fresco::Graphic_var(layout->align(window_frame, 0., 0.)));
 
-  game->new_field(8, 8);
+  CORBA::Any dummy; restart_cmd->execute(dummy);
 
   vbox->append_graphic(hbox);
   vbox->append_graphic(display->graphic());

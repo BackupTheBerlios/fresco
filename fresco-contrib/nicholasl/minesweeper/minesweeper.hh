@@ -1,8 +1,6 @@
 #ifndef __MINESWEEPER__
 #define __MINESWEEPER__
 
-#include <Fresco/config.hh>
-#include <Fresco/resolve.hh>
 #include <Fresco/Server.hh>
 
 #include <Fresco/CommandKit.hh>
