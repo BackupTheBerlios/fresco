@@ -1,7 +1,7 @@
 /*
   This implements basic functions for Fresco clients.
 
-  Copyright 2001 Ben Bucksch
+  Copyright 2001-2004 Ben Bucksch
   BSD license
  */
 package org.fresco.clientlib;
@@ -11,25 +11,29 @@ public class Unistring
   String content = null;
 
   public Unistring() {}
-  public Unistring(java.lang.String str_java)
+  public Unistring(java.lang.String javaStr)
   {
-    content = str_java;
+    content = javaStr;
   }
-  public Unistring(short[] str_fresco)
+  public Unistring(short[] frescoStr)
   {
     content = "";
-    for (int i = 0; i < str_fresco.length; i++)
-      content += (char)str_fresco[i];
+    for (int i = 0; i < frescoStr.length; i++)
+      content += (char)frescoStr[i];
   }
   public String toJava()
   {
     return content;
   }
+  public String toString()
+  {
+  	return content;
+  }
   public short[] toFresco()
   {
-    short[] str_fresco = new short[content.length()];
+    short[] frescoStr = new short[content.length()];
     for (int i = 0; i < content.length(); i++)
-      str_fresco[i] = (short)content.charAt(i);
-    return str_fresco;
+      frescoStr[i] = (short)content.charAt(i);
+    return frescoStr;
   }
 }

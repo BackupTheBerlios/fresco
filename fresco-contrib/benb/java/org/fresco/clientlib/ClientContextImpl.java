@@ -12,23 +12,22 @@ public class ClientContextImpl extends ClientContextPOA
 {
   // Generally useful
   public org.omg.PortableServer.POA poa = null;
-  public Unistring app_title = null;
+  protected Unistring appTitle = null;
 
-  public ClientContextImpl(org.omg.PortableServer.POA a_poa,
-                           String an_app_title)
+  public ClientContextImpl(org.omg.PortableServer.POA aPOA,
+                           String anAppTitle)
   {
-    poa = a_poa;
-    app_title = new Unistring("Java client");
+    poa = aPOA;
+    appTitle = new Unistring(anAppTitle);
   }
   public short[] application_title()
   {
-    return app_title.toFresco();
+    return appTitle.toFresco();
   };
   public short[] user_name()
   {
-    Unistring result = new Unistring("joe");
-    return result.toFresco();
-    // XXX get OS user. which interface? java.lang.System.getProperty("USERNAME", "joe")? <file:///usr/local/packages/java/docs/jdkse/docs/api/java/lang/System.html#getProperty(java.lang.String)>
+    String result = System.getProperty("user.name", "joe");
+    return new Unistring(result).toFresco();
   };
   public void ping()
   {

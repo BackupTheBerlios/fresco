@@ -7,6 +7,7 @@
 package org.fresco.clientlib;
 
 import org.fresco.idl.fresco.*;
+import org.fresco.idl.fresco.ToolKitPackage.*;
 
 public class TreeItemImpl
 {
@@ -177,11 +178,10 @@ public class TreeItemImpl
 
 		// Adjust representation
 		Color col = new Color();
-		col.red = 0; col.green = 255; col.blue = 0;
-		col.alpha = m_isSelected ? 0 : 255;  //XXX doesn't work
-		if (!m_isSelected)
-			col.red = 255; col.green = 255; col.blue = 255;
-   	desc_background = background(desc_graphic, col);
+		col.green = 1.; col.blue = 1.;
+		col.red = m_isSelected ? 0. : 1.;
+		//col.alpha = m_isSelected ? 0. : 1.; -- what did intend here?
+		desc_background = background(desc_graphic, col);
 		//  Replace
 		GraphicIterator i = desc_background_parent.first_child_graphic();
 		i.remove();
@@ -202,11 +202,11 @@ public class TreeItemImpl
 
 		// Create Graphics for this item
 		Color col = new Color();
-		col.red = 255; col.green = 255; col.blue = 255; col.alpha = 0;
+		col.red = 1.; col.green = 1.; col.blue = 1.; col.alpha = 1.;
 		representation = background(cc.layout.vbox(), col);
 		Graphic text = cc.layout.hbox();
 		twister = frame(cc.layout.hbox());
-   	adjustTwister();
+		adjustTwister();
 		OnClick internal_onClick = new OnClick(this, onClick, cc);
 		OnOpenClose internal_onOpenClose =
 			                             new OnOpenClose(this, onOpen, onClose, cc);
@@ -226,7 +226,7 @@ public class TreeItemImpl
 			System.err.println(e);
 		}
 		desc_graphic = cc.tool.button(description, internal_onClick_Ref);
-		col.alpha = 255;
+		col.alpha = 1.;
    	desc_background = background(desc_graphic, col);
 	  desc_background_parent = cc.layout.hbox();  /* dummy, so we can replace
 																									 background easier */
@@ -260,8 +260,7 @@ public class TreeItemImpl
   // Does not modify any class data
   public Graphic background(Graphic foreground, Color color)
 	{
-		org.fresco.idl.fresco.ToolKitPackage.FrameSpec fs =
-                              new org.fresco.idl.fresco.ToolKitPackage.FrameSpec();
+		FrameSpec fs = new FrameSpec();
 		fs.foreground(color);
 		return cc.tool.frame(foreground, 1., fs, true);
 	}
@@ -270,9 +269,8 @@ public class TreeItemImpl
 	{
 		return content;
 		/*
-		org.fresco.idl.fresco.ToolKitPackage.FrameSpec spec =
-			                        new org.fresco.idl.fresco.ToolKitPackage.FrameSpec();
-		spec.brightness(org.fresco.idl.fresco.ToolKitPackage.FrameType.outset, 0.5);
+		FrameSpec spec = new FrameSpec();
+		spec.brightness(FrameType.outset, 0.5);
 		return cc.tool.frame(content, 20., spec, false);
 		// Buggy
 		*/

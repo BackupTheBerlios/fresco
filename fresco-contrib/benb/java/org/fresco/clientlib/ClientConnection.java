@@ -10,6 +10,7 @@ package org.fresco.clientlib;
 import org.fresco.idl.fresco.*;
 import org.omg.CosNaming.*;
 import org.omg.CORBA.*;
+import java.io.*;
 
 public class ClientConnection extends ClientContextImpl
 {
@@ -26,23 +27,23 @@ public class ClientConnection extends ClientContextImpl
   public LayoutKit layout = null;
   public ToolKit tool = null;
   public WidgetKit widget = null;
-  public MenuKit menu = null;
   public FigureKit figure = null;
+  public RasterKit raster = null;
   public CommandKit command = null;
 
-  // Internal
-  protected boolean verbose = true;
+  // Debugging
+  public boolean verbose = true;
 
 
 
-  public ClientConnection(String[] commandline_args,
-                          String an_app_title)
+  public ClientConnection(String[] commandlineArgs,
+                          String anAppTitle)
   {
-    super(null, an_app_title);  // poa is being sat later
-    try
-    {
+    super(null, anAppTitle);  // poa is being set later
+    // Get ORB, POA
+    try {
       statusTry("Initializing CORBA ORB");
-      orb = org.omg.CORBA.ORB.init(commandline_args, null);
+      orb = org.omg.CORBA.ORB.init(commandlineArgs, null);
       statusSuccess(null);
       statusTry("Trying to get CORBA root POA");
       poa = org.omg.PortableServer.POAHelper.narrow(
@@ -51,94 +52,60 @@ public class ClientConnection extends ClientContextImpl
       statusTry("Activating POAManager");
       poa.the_POAManager().activate();
       statusSuccess(null);
+    } catch (Exception e) { fatalError("Could not get initial references", e); }
+    // Get NameService
+    try {
       statusTry("Trying to get name service");
       org.omg.CORBA.Object nserv =
                                 orb.resolve_initial_references("NameService");
       namingContext = NamingContextExtHelper.narrow(nserv);
       statusSuccess(null);
-    }
-    catch (Exception e)
-    {
-      fatalError("Could not get initial references", e);
-    }
+    } catch (Exception e) { statusFailure("Could not get name service", e); }
 
     // Get server
-    Server berlin_server = null;
-    try
-    {
-      org.omg.CORBA.Object objRef = resolve("IDL:fresco.org/Fresco/Server:1.0");
-      //XXX!!! fails
-      /*
-      NameComponent nc1 = new NameComponent("fresco.org", "Context");
-      NameComponent nc2 = new NameComponent("Fresco", "Context");
-      NameComponent nc3 = new NameComponent("Server", "Object");
-      NameComponent[] path = {nc1, nc2, nc3};
-      org.omg.CORBA.Object objRef = namingContext.resolve(path);
-      */
-      if (objRef == null)
-        fatalError("Got null ref for server from nameservice", null);
-      statusSuccess("Got Fresco server object from naming service");
-      berlin_server = ServerHelper.narrow(objRef);
-      statusSuccess("Narrowed to Server interface");
-    }
-    catch (Exception e)
-    {
-      fatalError("Could not get server", e);
-    }
+    Server frescoServer = null;
+    try {
+    	frescoServer = resolveServer(commandlineArgs);
+    } catch (Exception e) { fatalError("Search for Fresco server failed", e); }
 
     // Connect client to server
     org.omg.CORBA.Object thisRef = null;
-    try
-    {
+    try {
       thisRef = poa.servant_to_reference(this);
       statusSuccess("Connected ClientContextImpl to ORB");
-    }
-    catch (Exception e)
-    {
-      fatalError("Could not connect ClientContextImpl object to ORB", e);
-    }
+    } catch (Exception e) { fatalError("Could not connect ClientContextImpl object to ORB", e); }
 
-    try
-    {
-      serverContext = berlin_server.create_server_context(_this());
-    }
-    catch (Exception e)
-    {
-      fatalError("Client could not connect to server", e);
-    }
+    try {
+      serverContext = frescoServer.create_server_context(_this());
+    } catch (Exception e) { fatalError("Client could not connect to server", e); }
 
     // Getting some kits
     /* This is mostly convience for the app developer, not really
        related to the ClientContext */
-    try
-    {
-      text = TextKitHelper.narrow(resolve_kit("IDL:fresco.org/Fresco/TextKit:1.0"));
+    try {
+      text = TextKitHelper.narrow(resolveKit("IDL:fresco.org/Fresco/TextKit:1.0"));
       desktop = DesktopKitHelper.narrow(
-                                     resolve_kit("IDL:fresco.org/Fresco/DesktopKit:1.0"));
-      layout = LayoutKitHelper.narrow(resolve_kit("IDL:fresco.org/Fresco/LayoutKit:1.0"));
-      tool = ToolKitHelper.narrow(resolve_kit("IDL:fresco.org/Fresco/ToolKit:1.0"));
-      widget = WidgetKitHelper.narrow(resolve_kit("IDL:fresco.org/Fresco/WidgetKit:1.0"));
-      menu = MenuKitHelper.narrow(resolve_kit("IDL:fresco.org/Fresco/MenuKit:1.0"));
-      figure = FigureKitHelper.narrow(resolve_kit("IDL:fresco.org/Fresco/FigureKit:1.0"));
+                                     resolveKit("IDL:fresco.org/Fresco/DesktopKit:1.0"));
+      layout = LayoutKitHelper.narrow(resolveKit("IDL:fresco.org/Fresco/LayoutKit:1.0"));
+      tool = ToolKitHelper.narrow(resolveKit("IDL:fresco.org/Fresco/ToolKit:1.0"));
+      widget = WidgetKitHelper.narrow(resolveKit("IDL:fresco.org/Fresco/WidgetKit:1.0"));
+      figure = FigureKitHelper.narrow(resolveKit("IDL:fresco.org/Fresco/FigureKit:1.0"));
+      raster = RasterKitHelper.narrow(resolveKit("IDL:fresco.org/Fresco/RasterKit:1.0"));
       command = CommandKitHelper.narrow(
-                                     resolve_kit("IDL:fresco.org/Fresco/CommandKit:1.0"));
+                                     resolveKit("IDL:fresco.org/Fresco/CommandKit:1.0"));
       statusSuccess("Got Kits");
-    }
-    catch (Exception e)
-    {
-      fatalError("Could not get Kit", e);
-    }
+    } catch (Exception e) { fatalError("Could not get Kit", e); }
   }
 
   // Tries to get Kit "name" from server
-  public org.omg.CORBA.Object resolve_kit(String name)
+  public org.omg.CORBA.Object resolveKit(String name)
   {
     org.fresco.idl.fresco.KitPackage.Property[] properties = {};
-    return resolve_kit(name, properties);
+    return resolveKit(name, properties);
   }
 
   // Tries to get Kit "name" with "properties" from server
-  public org.omg.CORBA.Object resolve_kit(String name,
+  public org.omg.CORBA.Object resolveKit(String name,
                            org.fresco.idl.fresco.KitPackage.Property[] properties)
   {
     org.omg.CORBA.Object result = null;
@@ -148,6 +115,7 @@ public class ClientConnection extends ClientContextImpl
     }
     catch(Exception e)
     {
+      //XXX should be fatal?
       if (properties == null)
         fatalError("Could not get Kit \"" + name + "\"", e);
       else
@@ -173,6 +141,94 @@ public class ClientConnection extends ClientContextImpl
                  "\" from NameService", e);
     }
     return objRef;
+  }
+
+  protected Server resolveServer(String args[])
+  		throws Exception
+  {
+  	statusTry("Trying to find Fresco server");
+  	org.omg.CORBA.Object result = null;
+
+  	// Read vars
+
+  	String resolveType = null; // enum: "iorfile", "iorstring", "nameservice" or "corbaloc" 
+  	String filePathIOR = null;
+  	String serverID = null;
+  	String stringifiedIOR = null;
+
+  	// Reading vars from commandline
+  	try {
+  		for (int i = 0; i < args.length; i++)
+  		{
+  			// Not supporting short versions, to not conflict with app
+  			if (args[i].equals("--lookup-method") || args[i].equals("--export-ref"))
+  				resolveType = args[i + 1];
+  			else if (args[i].equals("--ior-file-path"))
+  				filePathIOR = args[i + 1];
+  			else if (args[i].equals("--server-id"))
+  				serverID = args[i + 1];
+  			else if (args[i].equals("--ior-string"))
+  				stringifiedIOR = args[i + 1];
+  		}
+  	} catch (Exception e) { fatalError("Commandline arguments malformed", e); }
+
+  	/*
+  	// Get FRESCO_DISPLAY environment variable
+	if (stringifiedIOR == null)
+	{
+		String envvar = System.getenv("FRESCO_DISPLAY"); -- deprecated - big suckage!
+		if (envvar != null)
+			stringifiedIOR = envvar;
+	}
+	*/
+
+	// Set defaults
+	if (resolveType == null)
+	{
+		if (filePathIOR != null)
+			resolveType = "iorfile";
+		else if (stringifiedIOR != null)
+			resolveType = "iorstring";
+		else
+			resolveType = "iorfile";
+	}
+	if (filePathIOR == null)
+		filePathIOR = "/tmp/fresco";
+	if (serverID == null)
+		serverID = "FrescoServer";
+
+	// Try to resolve server
+
+	// string IOR
+	if (resolveType.equals("iorstring"))
+		result = orb.string_to_object(stringifiedIOR);
+	// file IOR
+	else if (resolveType.equals("iorfile") || resolveType.equals("ior"))
+	{
+		 File inputFile = new File(filePathIOR, serverID);
+		 Reader in = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
+		 StringBuffer content = new StringBuffer();
+		 int ch;
+		 while ((ch = in.read()) != -1)
+		 	content.append((char) ch);
+
+		 String ior = content.toString().trim();
+		 result = orb.string_to_object(ior);
+	}
+	// nameservice
+	else if (resolveType.equals("nameservice") || resolveType.equals("nameserver"))
+		result = resolve(serverID);
+	// corbaloc
+	else if (resolveType.equals("corbaloc"))
+		throw new Exception("corbaloc not implemented");
+
+	// check and narrow result
+	if (result == null)
+		throw new NullPointerException("Got a null server reference");
+	Server resultNarrow = ServerHelper.narrow(result);
+
+	statusSuccess("Got Fresco server reference");
+	return resultNarrow;
   }
 
 
@@ -207,7 +263,7 @@ public class ClientConnection extends ClientContextImpl
     }
     catch (Exception e)
     {
-      fatalError("Application " + app_title + " terminated", e);
+      fatalError("Application " + appTitle + " terminated", e);
     }
   }
 
@@ -221,18 +277,24 @@ public class ClientConnection extends ClientContextImpl
     if (verbose)
     {
       System.err.println("Stack trace:");
-      e.printStackTrace(System.out);
+      e.printStackTrace(System.err);
     }
     System.exit(1);
   };
   public void statusTry(String msg)
   {
     if (verbose)
-      System.err.print(msg + "... ");
+      System.out.print(msg + "... ");
   };
   public void statusSuccess(String msg)
   {
     if (verbose)
-      System.err.println(msg == null ? "done." : msg);
+      System.out.println(msg == null ? "done." : msg);
+  };
+  public void statusFailure(String msg, Exception e)
+  {
+  	if (verbose)
+  		System.out.println((msg == null ? "failed" : msg)
+  									+ (e == null ? "" : " - " + e));
   };
 }
