@@ -186,7 +186,7 @@ private:
 
 int main(int argc, char *argv[])
 {
-  // must initalize ORB before I can use CORBA::sequence. Drat!
+  // must initalize ORB before using CORBA::sequence!
   CORBA::ORB_var orb;
   orb = CORBA::ORB_init(argc, argv);
 
@@ -197,7 +197,7 @@ int main(int argc, char *argv[])
   dumpMesh(mesh);
   TriangleIterator first(mesh.triangles, 0);
   TriangleIterator last(mesh.triangles, mesh.triangles.length());
-  Fresco::Vertices v = mesh.nodes; // transform the verticies!
+  Fresco::Vertices v = mesh.nodes; // transform the vertices here
   TriangleCompare comp(v);
   sort(first, last, comp);
   std::cout << std::endl << "after:" << std::endl;
@@ -211,7 +211,7 @@ int main(int argc, char *argv[])
 Fresco::Mesh test()
 {
   Fresco::Mesh mesh;
-  mesh.nodes.length(9);
+  mesh.nodes.length(6);
 
   mesh.nodes[0].x = 0; mesh.nodes[0].y = 0; mesh.nodes[0].z = 0;
   mesh.nodes[1].x = 1; mesh.nodes[1].y = 0; mesh.nodes[1].z = 0;
@@ -221,14 +221,9 @@ Fresco::Mesh test()
   mesh.nodes[4].x = 1; mesh.nodes[4].y = 0; mesh.nodes[4].z = 1;
   mesh.nodes[5].x = 1; mesh.nodes[5].y = 1; mesh.nodes[5].z = 1;
 
-  mesh.nodes[6].x = 0; mesh.nodes[6].y = 0; mesh.nodes[6].z = 2;
-  mesh.nodes[7].x = 1; mesh.nodes[7].y = 0; mesh.nodes[7].z = 2;
-  mesh.nodes[8].x = 1; mesh.nodes[8].y = 1; mesh.nodes[8].z = 2;
-
-  mesh.triangles.length(3);
-  mesh.triangles[0].a = 6; mesh.triangles[0].b = 8; mesh.triangles[0].c = 7;
+  mesh.triangles.length(2);
+  mesh.triangles[0].a = 3; mesh.triangles[0].b = 5; mesh.triangles[0].c = 4;
   mesh.triangles[1].a = 0; mesh.triangles[1].b = 1; mesh.triangles[1].c = 2;
-  mesh.triangles[2].a = 3; mesh.triangles[2].b = 4; mesh.triangles[2].c = 5;
 
   return mesh;
 }
