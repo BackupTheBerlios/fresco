@@ -6,8 +6,6 @@
  */
 package org.fresco.clientlib;
 
-import org.fresco.idl.fresco.*;
-
 public class Unistring
 {
   String content = null;

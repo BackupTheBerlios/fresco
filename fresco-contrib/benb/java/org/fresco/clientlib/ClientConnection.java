@@ -9,7 +9,6 @@ package org.fresco.clientlib;
 
 import org.fresco.idl.fresco.*;
 import org.omg.CosNaming.*;
-import org.omg.CosNaming.NamingContextPackage.*;
 import org.omg.CORBA.*;
 
 public class ClientConnection extends ClientContextImpl
@@ -67,7 +66,15 @@ public class ClientConnection extends ClientContextImpl
     Server berlin_server = null;
     try
     {
-      org.omg.CORBA.Object objRef = resolve("IDL:Warsaw/Server:1.0");
+      org.omg.CORBA.Object objRef = resolve("IDL:fresco.org/Fresco/Server:1.0");
+      //XXX!!! fails
+      /*
+      NameComponent nc1 = new NameComponent("fresco.org", "Context");
+      NameComponent nc2 = new NameComponent("Fresco", "Context");
+      NameComponent nc3 = new NameComponent("Server", "Object");
+      NameComponent[] path = {nc1, nc2, nc3};
+      org.omg.CORBA.Object objRef = namingContext.resolve(path);
+      */
       if (objRef == null)
         fatalError("Got null ref for server from nameservice", null);
       statusSuccess("Got Fresco server object from naming service");
@@ -105,16 +112,16 @@ public class ClientConnection extends ClientContextImpl
        related to the ClientContext */
     try
     {
-      text = TextKitHelper.narrow(resolve_kit("IDL:Fresco/TextKit:1.0"));
+      text = TextKitHelper.narrow(resolve_kit("IDL:fresco.org/Fresco/TextKit:1.0"));
       desktop = DesktopKitHelper.narrow(
-                                     resolve_kit("IDL:Fresco/DesktopKit:1.0"));
-      layout = LayoutKitHelper.narrow(resolve_kit("IDL:Fresco/LayoutKit:1.0"));
-      tool = ToolKitHelper.narrow(resolve_kit("IDL:Fresco/ToolKit:1.0"));
-      widget = WidgetKitHelper.narrow(resolve_kit("IDL:Fresco/WidgetKit:1.0"));
-      menu = MenuKitHelper.narrow(resolve_kit("IDL:Fresco/MenuKit:1.0"));
-      figure = FigureKitHelper.narrow(resolve_kit("IDL:Fresco/FigureKit:1.0"));
+                                     resolve_kit("IDL:fresco.org/Fresco/DesktopKit:1.0"));
+      layout = LayoutKitHelper.narrow(resolve_kit("IDL:fresco.org/Fresco/LayoutKit:1.0"));
+      tool = ToolKitHelper.narrow(resolve_kit("IDL:fresco.org/Fresco/ToolKit:1.0"));
+      widget = WidgetKitHelper.narrow(resolve_kit("IDL:fresco.org/Fresco/WidgetKit:1.0"));
+      menu = MenuKitHelper.narrow(resolve_kit("IDL:fresco.org/Fresco/MenuKit:1.0"));
+      figure = FigureKitHelper.narrow(resolve_kit("IDL:fresco.org/Fresco/FigureKit:1.0"));
       command = CommandKitHelper.narrow(
-                                     resolve_kit("IDL:Fresco/CommandKit:1.0"));
+                                     resolve_kit("IDL:fresco.org/Fresco/CommandKit:1.0"));
       statusSuccess("Got Kits");
     }
     catch (Exception e)

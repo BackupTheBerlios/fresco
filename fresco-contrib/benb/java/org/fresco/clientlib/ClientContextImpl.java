@@ -7,9 +7,6 @@
 package org.fresco.clientlib;
 
 import org.fresco.idl.fresco.*;
-import org.omg.CosNaming.*;
-import org.omg.CosNaming.NamingContextPackage.*;
-import org.omg.CORBA.*;
 
 public class ClientContextImpl extends ClientContextPOA
 {
