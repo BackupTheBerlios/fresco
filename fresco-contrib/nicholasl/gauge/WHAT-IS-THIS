@@ -1,0 +1,3 @@
+This is a linear gauge widget, aka. progress bar. The plan is to move
+this into the real Fresco WidgetKit. This is a prototype for the real
+API that will be used, so learn to work a BoundedValue!
