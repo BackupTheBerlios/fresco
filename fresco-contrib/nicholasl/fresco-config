@@ -1,5 +1,5 @@
 CPP=c++
 FRESCO=../../../Fresco/
-CPPFLAGS=`$FRESCO/bin/Fresco-config --cppflags`
-CXXFLAGS=`$FRESCO/bin/Fresco-config --cxxflags`
-LIBFLAGS=`$FRESCO/bin/Fresco-config --libs`
+CPPFLAGS=`$FRESCO/bin/Fresco-C++-config --cppflags`
+CXXFLAGS=`$FRESCO/bin/Fresco-C++-config --cxxflags`
+LIBFLAGS=`$FRESCO/bin/Fresco-C++-config --libs`
