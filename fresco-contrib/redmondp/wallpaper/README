@@ -1,13 +1,17 @@
-This client will attach a png to the desktop (hence the name wallpaper).  Only
+A simple "desktop" consisting of a PNG raster image.
+
+This client will attach a PNG to the desktop (hence the name wallpaper). Only
 PNGs located in {berlin-prefix}/share/PNG/ can be loaded.
 
-The default raster is berlin-128.png. Use  --raster (or -r) <value> to load
+The default raster is berlin-128.png. Use  --raster=<value> to load
 a different PNG.  
 
-ie --raster foo.png will load /usr/local/share/Berlin/PNG/foo.png
+ie 'wallpaper --raster=foo.png' will load /usr/local/share/Berlin/PNG/foo.png
 
 Bugs:
-The raster is not scaled or centered yet.  Pick a PNG that fits your server's 
-pixel resolution (the default is 640x480.)
-
-If you kill the client the raster will stay on the scenegraph.
+-The raster is not scaled or centered yet. Pick a PNG that fits your server's 
+ pixel resolution (the default is 640x480.)
+-If you kill the client the raster will stay on the scenegraph.
+-You must run wallpaper as the first client. It does not insert itself into
+ the scenegraph properly.
+ 
