@@ -1,0 +1,24 @@
+AC_PREREQ(2.13)
+
+AC_INIT()
+
+AM_INIT_AUTOMAKE(wallpaper,0.0.0,-)
+AC_PROG_CXX
+
+AC_ARG_WITH(fresco,
+[  --with-fresco=DIR	use Fresco installed with prefix DIR],
+CPPFLAGS="$CPPFLAGS `($withval/bin/Fresco-C++-config --cppflags)`"
+  CXXFLAGS="$CXXFLAGS `($withval/bin/Fresco-C++-config --cxxflags)`"
+  LDFLAGS="$LDFLAGS `($withval/bin/Fresco-C++-config --libs)`"
+  CPPFLAGS="$CPPFLAGS `($withval/bin/Berlin-config --cppflags)`"
+  CXXFLAGS="$CXXFLAGS `($withval/bin/Berlin-config --cxxflags)`"
+  LDFLAGS="$LDFLAGS `($withval/bin/Berlin-config --libs)`"
+
+)
+
+AC_LANG_CPLUSPLUS
+
+AC_OUTPUT(
+Makefile
+src/Makefile
+)
