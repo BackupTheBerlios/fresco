@@ -1,0 +1,3 @@
+There exists a corner-case in the GLDrawingKit where a partially-alpha Mesh
+will be rendered incorrectly. This can't be fixed in OpenGL. The only
+solution is to resort the triangles using painter's algorithm.
