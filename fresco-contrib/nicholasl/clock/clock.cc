@@ -41,10 +41,11 @@ public:
   {
     Prague::Time now = Prague::Time::currentTime();
     time_t t = time(0);
-    Graphic_var p = text->chunk(Unicode::to_CORBA(Babylon::String(asctime(localtime(&t)))));
+    std::string time(asctime(localtime(&t)));
+    time.erase(time.length()-1, time.length());
+    Graphic_var p = text->chunk(Unicode::to_CORBA(Babylon::String(time)));
     glyph->body(p);
     glyph->need_resize();
-    std::cerr << ".";
   }
 private:
   Graphic_var glyph;
