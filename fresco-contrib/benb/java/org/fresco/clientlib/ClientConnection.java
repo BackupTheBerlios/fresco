@@ -1,9 +1,9 @@
 /*
-	This implements basic functions for Fresco clients, incl.
+  This implements basic functions for Fresco clients, incl.
   the ClientContext and the establishment of the client-server connection.
 
-	Copyright 2001-2002 Ben Bucksch
-	BSD license
+  Copyright 2001-2002 Ben Bucksch
+  BSD license
  */
 package org.fresco.clientlib;
 
@@ -14,14 +14,14 @@ import org.omg.CORBA.*;
 
 public class ClientConnection extends ClientContextImpl
 {
-	// Generally useful
-	public ORB orb = null;
-	// poa inherited
-	public NamingContextExt namingContext = null;
+  // Generally useful
+  public ORB orb = null;
+  // poa inherited
+  public NamingContextExt namingContext = null;
 
-	// For implementing Fresco clients
-	// For convience
-	public ServerContext serverContext = null;
+  // For implementing Fresco clients
+  // For convience
+  public ServerContext serverContext = null;
   public TextKit text = null;
   public DesktopKit desktop = null;
   public LayoutKit layout = null;
@@ -34,155 +34,155 @@ public class ClientConnection extends ClientContextImpl
   // Internal
   protected boolean verbose = true;
 
-	public ClientConnection(String[] commandline_args,
+  public ClientConnection(String[] commandline_args,
                           String an_app_title)
-	{
+  {
     super(null, an_app_title);  // poa is being sat later
-		try
-		{
-			statusTry("Initializing CORBA ORB");
-			orb = org.omg.CORBA.ORB.init(commandline_args, null);
-			statusSuccess(null);
-			statusTry("Trying to get CORBA root POA");
-			poa = org.omg.PortableServer.POAHelper.narrow(
+    try
+    {
+      statusTry("Initializing CORBA ORB");
+      orb = org.omg.CORBA.ORB.init(commandline_args, null);
+      statusSuccess(null);
+      statusTry("Trying to get CORBA root POA");
+      poa = org.omg.PortableServer.POAHelper.narrow(
                                   orb.resolve_initial_references("RootPOA"));
-			statusSuccess(null);
-			statusTry("Activating POAManager");
-		  poa.the_POAManager().activate();
-			statusSuccess(null);
-			statusTry("Trying to get name service");
+      statusSuccess(null);
+      statusTry("Activating POAManager");
+      poa.the_POAManager().activate();
+      statusSuccess(null);
+      statusTry("Trying to get name service");
       org.omg.CORBA.Object nserv =
                                 orb.resolve_initial_references("NameService");
-			namingContext = NamingContextExtHelper.narrow(nserv);
-			statusSuccess(null);
-		}
-		catch (Exception e)
-		{
-			fatalError("Could not get initial references", e);
-		}
+      namingContext = NamingContextExtHelper.narrow(nserv);
+      statusSuccess(null);
+    }
+    catch (Exception e)
+    {
+      fatalError("Could not get initial references", e);
+    }
 
-		// Get server
-  	Server berlin_server = null;
-		try
-		{
-  		org.omg.CORBA.Object objRef = resolve("IDL:Warsaw/Server:1.0");
+    // Get server
+    Server berlin_server = null;
+    try
+    {
+      org.omg.CORBA.Object objRef = resolve("IDL:Warsaw/Server:1.0");
       if (objRef == null)
         fatalError("Got null ref for server from nameservice", null);
-  		statusSuccess("Got Fresco server object from naming service");
-  		berlin_server = ServerHelper.narrow(objRef);
+      statusSuccess("Got Fresco server object from naming service");
+      berlin_server = ServerHelper.narrow(objRef);
       statusSuccess("Narrowed to Server interface");
-		}
-		catch (Exception e)
-		{
-			fatalError("Could not get server", e);
-		}
+    }
+    catch (Exception e)
+    {
+      fatalError("Could not get server", e);
+    }
 
-		// Connect client to server
-		org.omg.CORBA.Object thisRef = null;
-		try
-		{
-			thisRef = poa.servant_to_reference(this);
-			statusSuccess("Connected ClientContextImpl to ORB");
-		}
-		catch (Exception e)
-		{
-			fatalError("Could not connect ClientContextImpl object to ORB", e);
-		}
+    // Connect client to server
+    org.omg.CORBA.Object thisRef = null;
+    try
+    {
+      thisRef = poa.servant_to_reference(this);
+      statusSuccess("Connected ClientContextImpl to ORB");
+    }
+    catch (Exception e)
+    {
+      fatalError("Could not connect ClientContextImpl object to ORB", e);
+    }
 
-		try
-		{
-			serverContext = berlin_server.create_server_context(_this());
-		}
-		catch (Exception e)
-		{
-			fatalError("Client could not connect to server", e);
-		}
+    try
+    {
+      serverContext = berlin_server.create_server_context(_this());
+    }
+    catch (Exception e)
+    {
+      fatalError("Client could not connect to server", e);
+    }
 
-		// Getting some kits
-		/* This is mostly convience for the app developer, not really
-			 related to the ClientContext */
-		try
-		{
-			text = TextKitHelper.narrow(resolve_kit("IDL:Warsaw/TextKit:1.0"));
-			desktop = DesktopKitHelper.narrow(
+    // Getting some kits
+    /* This is mostly convience for the app developer, not really
+       related to the ClientContext */
+    try
+    {
+      text = TextKitHelper.narrow(resolve_kit("IDL:Warsaw/TextKit:1.0"));
+      desktop = DesktopKitHelper.narrow(
                                      resolve_kit("IDL:Warsaw/DesktopKit:1.0"));
-			layout = LayoutKitHelper.narrow(resolve_kit("IDL:Warsaw/LayoutKit:1.0"));
-			tool = ToolKitHelper.narrow(resolve_kit("IDL:Warsaw/ToolKit:1.0"));
-			widget = WidgetKitHelper.narrow(resolve_kit("IDL:Warsaw/WidgetKit:1.0"));
-			figure = FigureKitHelper.narrow(resolve_kit("IDL:Warsaw/FigureKit:1.0"));
-			command = CommandKitHelper.narrow(
+      layout = LayoutKitHelper.narrow(resolve_kit("IDL:Warsaw/LayoutKit:1.0"));
+      tool = ToolKitHelper.narrow(resolve_kit("IDL:Warsaw/ToolKit:1.0"));
+      widget = WidgetKitHelper.narrow(resolve_kit("IDL:Warsaw/WidgetKit:1.0"));
+      figure = FigureKitHelper.narrow(resolve_kit("IDL:Warsaw/FigureKit:1.0"));
+      command = CommandKitHelper.narrow(
                                      resolve_kit("IDL:Warsaw/CommandKit:1.0"));
-			image = ImageKitHelper.narrow(resolve_kit("IDL:Warsaw/ImageKit:1.0"));
+      image = ImageKitHelper.narrow(resolve_kit("IDL:Warsaw/ImageKit:1.0"));
       statusSuccess("Got Kits");
-		}
-		catch (Exception e)
-		{
-		  fatalError("Could not get Kit", e);
-		}
-	}
+    }
+    catch (Exception e)
+    {
+      fatalError("Could not get Kit", e);
+    }
+  }
 
-	// Tries to get Kit "name" from server
-	public org.omg.CORBA.Object resolve_kit(String name)
-	{
-		org.fresco.Warsaw.KitPackage.Property[] properties = {};
-		return resolve_kit(name, properties);
-	}
+  // Tries to get Kit "name" from server
+  public org.omg.CORBA.Object resolve_kit(String name)
+  {
+    org.fresco.Warsaw.KitPackage.Property[] properties = {};
+    return resolve_kit(name, properties);
+  }
 
-	// Tries to get Kit "name" with "properties" from server
-	public org.omg.CORBA.Object resolve_kit(String name,
-													 org.fresco.Warsaw.KitPackage.Property[] properties)
-	{
-		org.omg.CORBA.Object result = null;
-		try
-		{
-			result = serverContext.resolve(name, properties);
-		}
-		catch(Exception e)
-		{
-			if (properties == null)
-				fatalError("Could not get Kit \"" + name + "\"", e);
-			else
-				fatalError("Could not get Kit \"" + name +
+  // Tries to get Kit "name" with "properties" from server
+  public org.omg.CORBA.Object resolve_kit(String name,
+                           org.fresco.Warsaw.KitPackage.Property[] properties)
+  {
+    org.omg.CORBA.Object result = null;
+    try
+    {
+      result = serverContext.resolve(name, properties);
+    }
+    catch(Exception e)
+    {
+      if (properties == null)
+        fatalError("Could not get Kit \"" + name + "\"", e);
+      else
+        fatalError("Could not get Kit \"" + name +
                    "\" with properties \"" + properties + "\"", e);
-		}
-		return result;
-	}
+    }
+    return result;
+  }
 
-	// Tries to get object "name" (on the top-level) from the NameService
-	public org.omg.CORBA.Object resolve(String name)
-	{
-		NameComponent nc = new NameComponent(name, "Object");
-		NameComponent path[] = {nc};
-		org.omg.CORBA.Object objRef = null;
-		try
-		{
-			objRef = namingContext.resolve(path);
-		}
-		catch (Exception e)
-		{
-			fatalError("Cound not get object with name \"" + name +
+  // Tries to get object "name" (on the top-level) from the NameService
+  public org.omg.CORBA.Object resolve(String name)
+  {
+    NameComponent nc = new NameComponent(name, "Object");
+    NameComponent path[] = {nc};
+    org.omg.CORBA.Object objRef = null;
+    try
+    {
+      objRef = namingContext.resolve(path);
+    }
+    catch (Exception e)
+    {
+      fatalError("Cound not get object with name \"" + name +
                  "\" from NameService", e);
-		}
-		return objRef;
-	}
+    }
+    return objRef;
+  }
 
   // Other convience functions
 
   // Run ordinary Java main loop
   public void run()
   {
-		try
-		{
+    try
+    {
       java.lang.Object sync = new java.lang.Object();
       synchronized (sync)
       {
         sync.wait();
       }
-		}
-		catch (Exception e)
-		{
-			fatalError("Application " + app_title + " terminated", e);
-		}
+    }
+    catch (Exception e)
+    {
+      fatalError("Application " + app_title + " terminated", e);
+    }
   }
 
   // Debugging
