@@ -3,6 +3,7 @@
 
 class GameContext;
 
+#include "TerrainGenerator.hh"
 #include "GameDisplayer.hh"
 #include "minesweeper.hh"
 
@@ -16,7 +17,7 @@ private:
   bool is_exposed(int x, int y);
   void set_exposed(int x, int y);
   void expose2(int x, int y, vector<int> *to_expose);
-  bool map[8][8];
+  int *map;
   GameDisplayer *_gd;
   int _width;
   int _height;
