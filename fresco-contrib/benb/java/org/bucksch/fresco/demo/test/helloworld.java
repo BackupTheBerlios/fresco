@@ -1,6 +1,9 @@
 /*
   A test program putting up a little window on the Berlin server
 
+  Note that much of the magic is hidden in ClientConnection
+  (esp. its constructor) and its parent.
+
   Copyright 2002 Ben Bucksch
   BSD license
  */
