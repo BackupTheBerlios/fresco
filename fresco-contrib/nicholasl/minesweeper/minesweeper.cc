@@ -1,14 +1,12 @@
 #include <Fresco/config.hh>
 #include <Fresco/resolve.hh>
 #include "minesweeper.hh"
+#include "field.hh"
 
 void SelectMine::execute(const CORBA::Any &a) {
-  int x, y;
-  CORBA::Long val;
-  a >>= val;
-  x = (int)floor(val/8.);
-  y = val-(x*8);
-  _context->expose(x, y);
+  Minesweeper::Index *i = new Minesweeper::Index;
+  a >>= i;
+  _context->expose(i->x, i->y);
 }
 
 class RestartGame : public virtual POA_Fresco::Command,

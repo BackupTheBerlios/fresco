@@ -1,0 +1,12 @@
+#ifndef _Minesweeper_idl
+#define _Minesweeper_idl
+
+module Minesweeper
+{
+  struct Index
+  {
+    long x, y;
+  };
+};
+
+#endif

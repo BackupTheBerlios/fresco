@@ -1,4 +1,5 @@
 #include "GameDisplayer.hh"
+#include "field.hh"
 
 GameDisplayer::GameDisplayer(Fresco::ServerContext_var server)
 {
@@ -47,13 +48,15 @@ void GameDisplayer::new_field(int width, int height, Fresco::Command_ptr cmd)
   index.col = width; index.row = height;
   _grid = layout->fixed_grid(index);
 
-  for(int i = 0; i < width; i++) {
-    index.col = i;
-    for (int j = 0; j < height; j++) {
-      index.row = j;
+  for(int x = 0; x < width; x++) {
+    index.col = x;
+    for (int y = 0; y < height; y++) {
+      index.row = y;
       Fresco::Trigger_var mine_button = widget->button(mines[0], cmd);
       CORBA::Any any;
-      any <<= (CORBA::Long)(8*i+j);
+      Minesweeper::Index *p = new Minesweeper::Index;
+      p->x = x; p->y = y;
+      any <<= p;
       mine_button->payload(any);
       _grid->replace(mine_button, index);
     }
