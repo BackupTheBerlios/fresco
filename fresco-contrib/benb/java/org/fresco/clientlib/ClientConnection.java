@@ -7,7 +7,7 @@
  */
 package org.fresco.clientlib;
 
-import org.fresco.Warsaw.*;
+import org.fresco.idl.fresco.*;
 import org.omg.CosNaming.*;
 import org.omg.CosNaming.NamingContextPackage.*;
 import org.omg.CORBA.*;
@@ -27,9 +27,9 @@ public class ClientConnection extends ClientContextImpl
   public LayoutKit layout = null;
   public ToolKit tool = null;
   public WidgetKit widget = null;
+  public MenuKit menu = null;
   public FigureKit figure = null;
   public CommandKit command = null;
-  public ImageKit image = null;
 
   // Internal
   protected boolean verbose = true;
@@ -105,16 +105,16 @@ public class ClientConnection extends ClientContextImpl
        related to the ClientContext */
     try
     {
-      text = TextKitHelper.narrow(resolve_kit("IDL:Warsaw/TextKit:1.0"));
+      text = TextKitHelper.narrow(resolve_kit("IDL:Fresco/TextKit:1.0"));
       desktop = DesktopKitHelper.narrow(
-                                     resolve_kit("IDL:Warsaw/DesktopKit:1.0"));
-      layout = LayoutKitHelper.narrow(resolve_kit("IDL:Warsaw/LayoutKit:1.0"));
-      tool = ToolKitHelper.narrow(resolve_kit("IDL:Warsaw/ToolKit:1.0"));
-      widget = WidgetKitHelper.narrow(resolve_kit("IDL:Warsaw/WidgetKit:1.0"));
-      figure = FigureKitHelper.narrow(resolve_kit("IDL:Warsaw/FigureKit:1.0"));
+                                     resolve_kit("IDL:Fresco/DesktopKit:1.0"));
+      layout = LayoutKitHelper.narrow(resolve_kit("IDL:Fresco/LayoutKit:1.0"));
+      tool = ToolKitHelper.narrow(resolve_kit("IDL:Fresco/ToolKit:1.0"));
+      widget = WidgetKitHelper.narrow(resolve_kit("IDL:Fresco/WidgetKit:1.0"));
+      menu = MenuKitHelper.narrow(resolve_kit("IDL:Fresco/MenuKit:1.0"));
+      figure = FigureKitHelper.narrow(resolve_kit("IDL:Fresco/FigureKit:1.0"));
       command = CommandKitHelper.narrow(
-                                     resolve_kit("IDL:Warsaw/CommandKit:1.0"));
-      image = ImageKitHelper.narrow(resolve_kit("IDL:Warsaw/ImageKit:1.0"));
+                                     resolve_kit("IDL:Fresco/CommandKit:1.0"));
       statusSuccess("Got Kits");
     }
     catch (Exception e)
@@ -126,13 +126,13 @@ public class ClientConnection extends ClientContextImpl
   // Tries to get Kit "name" from server
   public org.omg.CORBA.Object resolve_kit(String name)
   {
-    org.fresco.Warsaw.KitPackage.Property[] properties = {};
+    org.fresco.idl.fresco.KitPackage.Property[] properties = {};
     return resolve_kit(name, properties);
   }
 
   // Tries to get Kit "name" with "properties" from server
   public org.omg.CORBA.Object resolve_kit(String name,
-                           org.fresco.Warsaw.KitPackage.Property[] properties)
+                           org.fresco.idl.fresco.KitPackage.Property[] properties)
   {
     org.omg.CORBA.Object result = null;
     try

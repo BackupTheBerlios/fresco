@@ -6,7 +6,7 @@
  */
 package org.fresco.clientlib;
 
-import org.fresco.Warsaw.*;
+import org.fresco.idl.fresco.*;
 import org.omg.CosNaming.*;
 import org.omg.CosNaming.NamingContextPackage.*;
 import org.omg.CORBA.*;

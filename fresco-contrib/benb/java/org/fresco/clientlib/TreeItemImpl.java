@@ -6,7 +6,7 @@
  */
 package org.fresco.clientlib;
 
-import org.fresco.Warsaw.*;
+import org.fresco.idl.fresco.*;
 
 public class TreeItemImpl
 {
@@ -260,8 +260,8 @@ public class TreeItemImpl
   // Does not modify any class data
   public Graphic background(Graphic foreground, Color color)
 	{
-		org.fresco.Warsaw.ToolKitPackage.FrameSpec fs =
-                              new org.fresco.Warsaw.ToolKitPackage.FrameSpec();
+		org.fresco.idl.fresco.ToolKitPackage.FrameSpec fs =
+                              new org.fresco.idl.fresco.ToolKitPackage.FrameSpec();
 		fs.foreground(color);
 		return cc.tool.frame(foreground, 1., fs, true);
 	}
@@ -270,9 +270,9 @@ public class TreeItemImpl
 	{
 		return content;
 		/*
-		org.fresco.Warsaw.ToolKitPackage.FrameSpec spec =
-			                        new org.fresco.Warsaw.ToolKitPackage.FrameSpec();
-		spec.brightness(org.fresco.Warsaw.ToolKitPackage.FrameType.outset, 0.5);
+		org.fresco.idl.fresco.ToolKitPackage.FrameSpec spec =
+			                        new org.fresco.idl.fresco.ToolKitPackage.FrameSpec();
+		spec.brightness(org.fresco.idl.fresco.ToolKitPackage.FrameType.outset, 0.5);
 		return cc.tool.frame(content, 20., spec, false);
 		// Buggy
 		*/

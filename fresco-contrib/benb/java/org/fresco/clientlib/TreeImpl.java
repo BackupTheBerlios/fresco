@@ -14,7 +14,7 @@
  */
 package org.fresco.clientlib;
 
-import org.fresco.Warsaw.*;
+import org.fresco.idl.fresco.*;
 
 public class TreeImpl extends TreeItemImpl
 {
