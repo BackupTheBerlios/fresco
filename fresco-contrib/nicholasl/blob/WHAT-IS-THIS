@@ -1,0 +1,4 @@
+This is a sample of a scene graph node implemented in the client
+side. Just to be a little perverted, it renders itself differently
+each time it is asked to draw. This can be used as a diagnostic tool
+to examine how clipping and drawing are being handled.
